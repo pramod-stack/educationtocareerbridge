@@ -56,6 +56,8 @@ export const viewport: Viewport = {
   themeColor: '#000000',
 }
 
+import { SchemaOrg } from '@/components/site/schema-org'
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -67,6 +69,9 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`dark bg-black ${inter.variable} ${manrope.variable}`}
     >
+      <head>
+        <SchemaOrg />
+      </head>
       <body suppressHydrationWarning className="font-sans antialiased bg-black text-white">
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}

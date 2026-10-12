@@ -5,14 +5,18 @@ import { BrandLogo } from '@/components/site/brand-logo'
 import { Mail, MapPin, Phone, MessageCircle } from 'lucide-react'
 
 const navigationLinks = [
-  { label: 'Career Discovery', href: '#careers' },
-  { label: 'Stream Selection', href: '#journey' },
-  { label: 'College Shortlisting', href: '#compare' },
-  { label: 'Application Support', href: '#how-it-works' },
-  { label: 'Parent Guidance', href: '#parents' },
-  { label: 'Success Stories', href: '#stories' },
-  { label: 'FAQs', href: '#faq' },
-  { label: 'Book Counselling', href: '#book' },
+  { label: 'About Us', href: '/about' },
+  { label: 'Our Services', href: '/services' },
+  { label: 'Top Colleges Guide', href: '/colleges' },
+  { label: 'Career Trajectories', href: '/careers' },
+  { label: 'Interactive Simulator', href: '/#simulator' },
+  { label: '11-Stage Journey', href: '/#journey' },
+  { label: 'Methodology', href: '/#how-it-works' },
+  { label: 'Parent Guidance', href: '/#parents' },
+  { label: 'Success Stories', href: '/#stories' },
+  { label: 'FAQs', href: '/#faq' },
+  { label: 'Contact Us', href: '/contact' },
+  { label: 'Book Counselling', href: '/#book' },
 ]
 
 export function SiteFooter() {

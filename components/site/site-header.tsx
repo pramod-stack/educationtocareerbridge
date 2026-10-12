@@ -6,13 +6,12 @@ import { BrandLogo } from '@/components/site/brand-logo'
 import { cn } from '@/lib/utils'
 
 const links = [
-  { href: '#journey', label: 'Journey' },
-  { href: '#how-it-works', label: 'Methodology' },
-  { href: '#simulator', label: 'Simulator' },
-  { href: '#compare', label: 'Compare Colleges' },
-  { href: '#careers', label: 'Careers' },
-  { href: '#parents', label: 'For Parents' },
-  { href: '#stories', label: 'Success Stories' },
+  { href: '/about', label: 'About' },
+  { href: '/services', label: 'Services' },
+  { href: '/colleges', label: 'Colleges' },
+  { href: '/careers', label: 'Careers' },
+  { href: '/#simulator', label: 'Simulator' },
+  { href: '/contact', label: 'Contact' },
 ]
 
 export function SiteHeader() {
@@ -49,7 +48,7 @@ export function SiteHeader() {
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-4 sm:px-6 lg:px-8">
         {/* Left: Brand Logo */}
         <a
-          href="#top"
+          href="/"
           className="group flex items-center outline-none focus-visible:ring-2 focus-visible:ring-[#8052FF]"
         >
           <BrandLogo />
