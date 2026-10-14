@@ -1,7 +1,6 @@
-// Built using Hyperiux Vault: https://vault.hyperiux.com
 "use client";
 
-import {
+import React, {
   type CSSProperties,
   useEffect,
   useLayoutEffect,
@@ -10,20 +9,26 @@ import {
 } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { SplitText } from "gsap/SplitText";
+import {
+  Brain,
+  Building,
+  GraduationCap,
+  Home,
+  Code2,
+  Briefcase,
+  Trophy,
+  ArrowRight,
+  PhoneCall,
+  Sparkles,
+} from "lucide-react";
 
 if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger, SplitText);
+  gsap.registerPlugin(ScrollTrigger);
 }
 
 const useIsomorphicLayoutEffect =
   typeof window !== "undefined" ? useLayoutEffect : useEffect;
 
-/* Inline stand-in for @gsap/react's useGSAP. Mirrors its default
-   `revertOnUpdate: false`: one gsap.context lives for the component's
-   lifetime, the callback is re-added when dependencies change, and the
-   context is reverted only on unmount. A callback may return its own
-   cleanup, which runs before the next re-add and on unmount. */
 function useGSAP(
   callback: () => void | (() => void),
   options?: {
@@ -82,9 +87,11 @@ export type JourneyItem = {
   year: string;
   month: Month;
   content: string;
+  stageBadge?: string;
+  phase?: string;
+  deliverable?: string;
+  icon?: React.ElementType;
 };
-
-type SplitTextInstance = InstanceType<typeof SplitText>;
 
 export type TimelineProps = {
   title?: string;
@@ -97,9 +104,7 @@ export type TimelineProps = {
   imageAlt?: string;
   topItems?: JourneyItem[];
   bottomItems?: JourneyItem[];
-  /** Reveal animation duration, in seconds. */
   duration?: number;
-  /** Fallback reveal duration when `duration` is omitted, in seconds. */
   scrollDuration?: number;
 };
 
@@ -107,16 +112,13 @@ const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
 
 function subscribeToReducedMotion(callback: () => void) {
   if (typeof window === "undefined") return () => {};
-
   const mediaQueryList = window.matchMedia(REDUCED_MOTION_QUERY);
   mediaQueryList.addEventListener("change", callback);
-
   return () => mediaQueryList.removeEventListener("change", callback);
 }
 
 function getReducedMotionSnapshot() {
   if (typeof window === "undefined") return false;
-
   return window.matchMedia?.(REDUCED_MOTION_QUERY)?.matches ?? false;
 }
 
@@ -128,55 +130,83 @@ function usePrefersReducedMotion() {
   return useSyncExternalStore(
     subscribeToReducedMotion,
     getReducedMotionSnapshot,
-    getServerReducedMotionSnapshot,
+    getServerReducedMotionSnapshot
   );
 }
 
 export const defaultTopJourneyData: JourneyItem[] = [
   {
     id: "stage-1",
-    year: "Stage 01 · Scientific Profiling",
+    year: "Stage 01",
     month: "March",
-    content: "Cognitive aptitude, natural interest mapping & 90-minute psychometric assessment.",
-  },
-  {
-    id: "stage-2",
-    year: "Stage 02 · College Verification",
-    month: "July",
-    content: "Audited placement data, verified fee sheets, lab infrastructure & ROI comparison.",
+    stageBadge: "Stage 01 · Profiling",
+    phase: "Cognitive Assessment",
+    content: "Scientific aptitude, personality mapping & 90-minute psychometric evaluation to identify genuine strengths.",
+    deliverable: "Deliverable: Cognitive Blueprint & 3 Feasible Streams",
+    icon: Brain,
   },
   {
     id: "stage-3",
-    year: "Stage 03 · Zero-Capitation Admission",
+    year: "Stage 03",
     month: "April",
-    content: "Counselling entry, quota navigation, merit scholarships & transparent paperwork.",
+    stageBadge: "Stage 03 · Admission",
+    phase: "Zero-Capitation Entry",
+    content: "Transparent application filing, counselling quota navigation, merit scholarships & verified fee paperwork.",
+    deliverable: "Deliverable: Formal Admission & Zero Surprise Fees",
+    icon: GraduationCap,
   },
   {
-    id: "stage-4",
-    year: "Stage 04 · Living & Safety Support",
-    month: "May",
-    content: "Physical hostel inspection, neighborhood safety audit & local guardian support.",
+    id: "stage-5",
+    year: "Stage 05",
+    month: "November",
+    stageBadge: "Stage 05 · Skills",
+    phase: "Academic Years 1 & 2",
+    content: "Semester-by-semester industry roadmaps, certifications, hackathons & verifiable GitHub proof of work.",
+    deliverable: "Deliverable: Industry-Ready Tech & Skill Stack",
+    icon: Code2,
+  },
+  {
+    id: "stage-7",
+    year: "Stage 07",
+    month: "September",
+    stageBadge: "Stage 07 · Placement",
+    phase: "Career Launch",
+    content: "Campus placement selection, multi-offer evaluation, salary negotiation & first 90-days corporate onboarding.",
+    deliverable: "Deliverable: First High-Growth Job Offer & Alumni Network",
+    icon: Trophy,
   },
 ];
 
 export const defaultBottomJourneyData: JourneyItem[] = [
   {
-    id: "stage-5",
-    year: "Stage 05 · Skill Milestones",
-    month: "November",
-    content: "Semester-by-semester industry roadmaps, certifications, GitHub/portfolio proof of work.",
+    id: "stage-2",
+    year: "Stage 02",
+    month: "July",
+    stageBadge: "Stage 02 · Verification",
+    phase: "College Due Diligence",
+    content: "Independent audit of real median placements, laboratory equipment, faculty retention & return on investment.",
+    deliverable: "Deliverable: Audited Fact-Sheet vs Brochure Claims",
+    icon: Building,
+  },
+  {
+    id: "stage-4",
+    year: "Stage 04",
+    month: "May",
+    stageBadge: "Stage 04 · Living",
+    phase: "Campus Transition",
+    content: "Physical hostel inspection, hygienic dining audits, neighborhood safety checks & local guardian support in Bengaluru.",
+    deliverable: "Deliverable: Inspected Accommodation & Local Emergency Contact",
+    icon: Home,
   },
   {
     id: "stage-6",
-    year: "Stage 06 · Internships & Mocks",
+    year: "Stage 06",
     month: "October",
-    content: "Corporate referrals, resume architecture, algorithmic mocks & executive presence.",
-  },
-  {
-    id: "stage-7",
-    year: "Stage 07 · Placement & Career Launch",
-    month: "September",
-    content: "Campus placement selection, salary negotiation & first 90-days corporate onboarding.",
+    stageBadge: "Stage 06 · Internships",
+    phase: "Pre-Placement Years 3 & 4",
+    content: "Corporate referrals, resume architecture, algorithmic mocks & executive communication coaching.",
+    deliverable: "Deliverable: Minimum 1 Tier-1 Corporate Internship",
+    icon: Briefcase,
   },
 ];
 
@@ -191,372 +221,314 @@ export default function Timeline({
   imageAlt = "Education Bridge counsellor mentoring student and parents",
   topItems = defaultTopJourneyData,
   bottomItems = defaultBottomJourneyData,
-  duration,
-  scrollDuration = 1.2,
 }: TimelineProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const wholeSliderRef = useRef<HTMLDivElement>(null);
+  const progressBarRef = useRef<HTMLDivElement>(null);
   const reducedMotion = usePrefersReducedMotion();
-  const animationDuration = duration ?? scrollDuration;
-  const normalizedDuration = Math.max(0.2, animationDuration);
-
-  const topData = topItems;
-  const bottomData = bottomItems;
-  const allJourneyItems: JourneyItem[] = [...topData, ...bottomData];
 
   const sectionStyle: CSSProperties = {
     color: textColor,
     backgroundColor,
   };
-  const activeStyle: CSSProperties = {
-    backgroundColor: activeColor,
-  };
-  const mutedTextStyle: CSSProperties = {
-    color: mutedTextColor,
-  };
 
   useGSAP(() => {
     const section = sectionRef.current;
+    const slider = wholeSliderRef.current;
+    const progressBar = progressBarRef.current;
 
-    if (!section) return;
+    if (!section || !slider) return;
 
-    const isMobile = window.innerWidth < 600;
-    const slidePercent = isMobile ? -57 : -65;
-    const lineWidth = isMobile ? "65%" : "98%";
-    const lineStart = isMobile ? "top 30%" : "top 25%";
-    const slideEnd = isMobile ? "82% 50%" : "92% bottom";
-    const lineEnd = isMobile ? "80% 50%" : "92% bottom";
+    if (reducedMotion) {
+      if (progressBar) progressBar.style.width = "100%";
+      return;
+    }
+
+    // Measure exact scroll amount dynamically
+    const computeDistance = () => {
+      const scrollWidth = slider.scrollWidth;
+      const viewportWidth = window.innerWidth;
+      return Math.max(0, scrollWidth - viewportWidth + 80);
+    };
 
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: section,
         start: "top top",
-        end: slideEnd,
-        scrub: true,
+        end: () => `+=${computeDistance()}`,
+        pin: true,
+        scrub: 1,
+        invalidateOnRefresh: true,
+        anticipatePin: 1,
       },
-      defaults: {
-        ease: "none",
-      },
+      defaults: { ease: "none" },
     });
 
-    tl.fromTo(
-      wholeSliderRef.current,
-      { xPercent: 0 },
-      { xPercent: slidePercent },
-    );
-
-    if (reducedMotion) {
-      gsap.set(".journey-line", { width: lineWidth });
-      return;
-    }
-
-    gsap.to(".journey-line", {
-      width: lineWidth,
+    tl.to(slider, {
+      x: () => -computeDistance(),
       ease: "none",
-      scrollTrigger: {
-        trigger: section,
-        start: lineStart,
-        end: lineEnd,
-        scrub: true,
-      },
     });
-  }, { dependencies: [reducedMotion], scope: sectionRef });
 
-  useGSAP(() => {
-    const section = sectionRef.current;
-
-    if (!section) return;
-
-    const items = allJourneyItems;
-
-    if (reducedMotion) {
-      items.forEach((item) => {
-        gsap.set(`.jl-${item.id}`, { scaleY: 1 });
-        gsap.set(`.jd-${item.id}`, { scale: 1 });
-        gsap.set(`.title-${item.id}`, { opacity: 1, clearProps: "transform" });
-        gsap.set(`.description-${item.id}`, {
-          opacity: 1,
-          clearProps: "transform",
-        });
-      });
-      return;
+    if (progressBar) {
+      tl.to(
+        progressBar,
+        {
+          width: "100%",
+          ease: "none",
+        },
+        0
+      );
     }
 
-    items.forEach((item) => {
-      gsap.set(`.jl-${item.id}`, {
-        scaleY: 0,
-        transformOrigin: "bottom bottom",
-      });
-      gsap.set(`.jd-${item.id}`, { scale: 0 });
-      gsap.set(`.title-${item.id}`, { opacity: 1 });
-      gsap.set(`.description-${item.id}`, { opacity: 1 });
-    });
-
-    const titleSplits: Partial<Record<string, SplitTextInstance>> = {};
-    const descriptionSplits: Partial<Record<string, SplitTextInstance>> = {};
-
-    items.forEach((item) => {
-      try {
-        titleSplits[item.id] = new SplitText(`.title-${item.id}`, {
-          type: "chars, words, lines",
-          mask: "lines",
-        });
-
-        descriptionSplits[item.id] = new SplitText(`.description-${item.id}`, {
-          type: "chars, words, lines",
-          mask: "lines",
-        });
-      } catch (err) {
-        // Fallback gracefully if DOM element not queryable
-      }
-    });
-
-    const createItemTimeline = (
-      item: JourneyItem,
-      startPos: number,
-      endPos: number,
-    ) => {
-      const lineSelector = `.jl-${item.id}`;
-      const dotSelector = `.jd-${item.id}`;
-      const titleLines = titleSplits[item.id]?.lines || [`.title-${item.id}`];
-      const descriptionLines = descriptionSplits[item.id]?.lines || [`.description-${item.id}`];
-
-      const isTop = topData.some((topItem) => topItem.id === item.id);
-
-      if (!isTop) {
-        gsap.set(lineSelector, { transformOrigin: "top top" });
-      }
-
-      const timeline = gsap.timeline({
-        scrollTrigger: {
-          trigger: section,
-          start: `${startPos}% 30%`,
-          end: `${endPos}% 50%`,
-          scrub: true,
-        },
-      });
-
-      timeline
-        .to(lineSelector, {
-          scaleY: 1,
-          duration: normalizedDuration * 0.4,
-        })
-        .to(
-          dotSelector,
-          {
-            scale: 1,
-            duration: normalizedDuration * 0.4,
-          },
-          "<",
-        )
-        .fromTo(
-          titleLines,
-          { y: 60, opacity: 0 },
-          {
-            y: 0,
-            opacity: 1,
-            delay: -0.8 * normalizedDuration,
-            duration: normalizedDuration,
-            stagger: 0.02,
-            ease: "power2.out",
-          },
-        )
-        .fromTo(
-          descriptionLines,
-          { y: 60, opacity: 0 },
-          {
-            y: 0,
-            opacity: 1,
-            duration: normalizedDuration,
-            stagger: 0.02,
-            ease: "power2.out",
-          },
-          "<",
-        );
-
-      return timeline;
-    };
-
-    const positions: ReadonlyArray<readonly [number, number]> =
-      window.innerWidth < 600
-        ? [
-            [22, 32],
-            [28, 38],
-            [36, 46],
-            [45, 55],
-            [52, 62],
-            [60, 70],
-            [69, 79],
-          ]
-        : [
-            [6, 26],
-            [16, 36],
-            [26, 46],
-            [35, 55],
-            [45, 65],
-            [55, 75],
-            [65, 85],
-          ];
-
-    items.forEach((item, index) => {
-      const pos = positions[index] || [10 + index * 10, 30 + index * 10];
-      createItemTimeline(item, pos[0], pos[1]);
-    });
-
-    const handleResize = () => {
+    const refreshHandler = () => {
       ScrollTrigger.refresh();
     };
 
-    window.addEventListener("resize", handleResize);
-
+    window.addEventListener("resize", refreshHandler);
     return () => {
-      Object.values(titleSplits).forEach((split) => split?.revert?.());
-      Object.values(descriptionSplits).forEach((split) => split?.revert?.());
-      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("resize", refreshHandler);
     };
-  }, { dependencies: [normalizedDuration, reducedMotion], scope: sectionRef });
+  }, { dependencies: [reducedMotion], scope: sectionRef });
+
+  // Interleave milestones: Stage 01 (top), Stage 02 (bottom), Stage 03 (top), ...
+  const interleavedMilestones = [
+    { item: topItems[0], position: "top" as const, index: 1 },
+    { item: bottomItems[0], position: "bottom" as const, index: 2 },
+    { item: topItems[1], position: "top" as const, index: 3 },
+    { item: bottomItems[1], position: "bottom" as const, index: 4 },
+    { item: topItems[2], position: "top" as const, index: 5 },
+    { item: bottomItems[2], position: "bottom" as const, index: 6 },
+    { item: topItems[3], position: "top" as const, index: 7 },
+  ];
 
   return (
     <section
       ref={sectionRef}
       id="journey"
-      className="h-[200vw] max-[600px]:h-[400vh] w-full relative overflow-hidden border-t border-b border-white/[0.08]"
+      className="relative w-full overflow-hidden bg-black border-t border-b border-white/[0.08]"
       style={sectionStyle}
     >
-      <div className="h-screen w-screen sticky top-[0%] pt-[8%] overflow-hidden max-[600px]:top-[5%]">
+      {/* Viewport Frame with vertical centering */}
+      <div className="h-screen w-full flex flex-col justify-between pt-24 pb-12 sm:pt-28 sm:pb-16 px-4 sm:px-8 relative overflow-hidden">
+        {/* Subtle background ambient radial glow */}
         <div
-          ref={wholeSliderRef}
-          className="mr-[2vw] flex h-[32vw] w-[240vw] items-center gap-[5vw] px-[5vw] max-[600px]:h-[80vh] max-[600px]:w-[800vw] max-[600px]:px-[7vw]"
-        >
-          {/* Visual Lead Card with Branded Asset */}
-          <div className="h-full w-[30vw] overflow-hidden rounded-[1.5vw] border border-white/[0.1] bg-[#0A1624] shadow-[0_20px_50px_rgba(0,0,0,0.8)] max-[600px]:h-[65vw] max-[600px]:w-[85vw] max-[600px]:rounded-[5vw] relative group">
-            <img
-              src={imageUrl}
-              alt={imageAlt}
-              draggable={false}
-              className="h-full w-full object-cover filter contrast-[1.05] brightness-90 transition-transform duration-700 group-hover:scale-105"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent p-6 flex flex-col justify-end">
-              <span className="text-[11px] font-mono tracking-[0.2em] text-[#00C2FF] uppercase">
-                Continuous Stewardship
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_50%,rgba(0,194,255,0.08),transparent_70%)]"
+        />
+
+        {/* Top Header Row within the pinned frame */}
+        <div className="relative z-10 w-full max-w-7xl mx-auto flex items-center justify-between mb-4">
+          <div>
+            <div className="flex items-center gap-2">
+              <span className="size-2 rounded-full bg-[#00C2FF] animate-pulse" />
+              <span className="text-[12px] font-mono tracking-[0.2em] text-[#00C2FF] uppercase font-medium">
+                One Partner · Every Stage
               </span>
-              <p className="font-heading text-lg sm:text-xl text-white font-normal mt-1">
-                From Class 10 to First Job
-              </p>
             </div>
+            <h2 className="mt-1 font-heading text-2xl sm:text-4xl text-white font-normal tracking-tight">
+              {title}
+            </h2>
           </div>
 
-          <div className="relative h-full w-full">
-            {/* Horizontal Timeline Center Track */}
-            <div className="w-full absolute left-0 top-[49%] -translate-y-1/2 flex items-center h-fit">
-              <div
-                className="h-[.8vw] max-[600px]:h-[2vw] max-[600px]:w-[2vw] w-[.8vw] rounded-full shadow-[0_0_12px_rgba(0,194,255,0.8)]"
-                style={activeStyle}
-              ></div>
-              <div
-                className="h-[2px] w-[0%] rounded-full journey-line shadow-[0_0_16px_rgba(0,194,255,0.9)]"
-                style={activeStyle}
-              ></div>
-              <div
-                className="h-[.8vw] max-[600px]:h-[2vw] max-[600px]:w-[2vw] w-[.8vw] rounded-full shadow-[0_0_12px_rgba(0,194,255,0.8)]"
-                style={activeStyle}
-              ></div>
-            </div>
+          <div className="hidden md:flex flex-col items-end">
+            <span className="font-mono text-xs text-[#56D8E7] tracking-wider uppercase">
+              {periodLabel}
+            </span>
+            <span className="text-xs text-[#94A3B8] font-light mt-0.5 flex items-center gap-1.5">
+              <span>Scroll down to navigate trajectory</span>
+              <ArrowRight className="size-3 text-[#00C2FF]" />
+            </span>
+          </div>
+        </div>
 
-            {/* Top Half of Timeline */}
-            <div className="flex h-1/2 w-full items-center justify-start gap-[.5vw]">
-              <div className="h-full w-[20%] pt-[2vw] max-[600px]:h-fit max-[600px]:pt-[5vw]">
-                <span className="text-[11px] font-mono tracking-widest text-[#00C2FF] uppercase block mb-1">
-                  Timeline
+        {/* Central Scrolling Canvas & Track */}
+        <div className="relative w-full flex-1 flex items-center overflow-visible">
+          {/* Main Horizontal Track Slider */}
+          <div
+            ref={wholeSliderRef}
+            className="flex items-center gap-6 sm:gap-10 shrink-0 will-change-transform pr-16"
+          >
+            {/* 00. Anchor Lead Card */}
+            <div className="w-[300px] sm:w-[360px] h-[440px] shrink-0 rounded-2xl border border-white/10 bg-[#070e17] shadow-[0_20px_50px_rgba(0,0,0,0.8)] overflow-hidden flex flex-col justify-between relative group">
+              <div className="relative h-1/2 w-full overflow-hidden">
+                <img
+                  src={imageUrl}
+                  alt={imageAlt}
+                  draggable={false}
+                  className="h-full w-full object-cover filter contrast-[1.05] brightness-90 transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#070e17] via-transparent to-transparent" />
+                <span className="absolute top-3 left-3 px-2.5 py-1 rounded-full text-[10px] font-mono font-medium tracking-wider bg-black/70 backdrop-blur-md text-[#56D8E7] border border-white/10">
+                  Continuous Stewardship
                 </span>
-                <h2 className="w-[85%] font-heading font-normal text-[2.8vw] leading-[1.02] text-white max-[600px]:text-[8.5vw]">
-                  {title}
-                </h2>
               </div>
 
-              <div className="w-full flex h-full gap-x-[15vw] max-[600px]:gap-x-[40vw]">
-                {topData.map((item) => (
-                  <div
-                    key={`top-${item.id}`}
-                    className="relative h-full w-[30vw] px-[3vw] max-[600px]:flex max-[600px]:w-[70vw] max-[600px]:flex-col max-[600px]:px-[7vw]"
-                  >
-                    <div className="w-full absolute left-0 bottom-0 top-0 h-full">
-                      <div
-                        className={`size-[1vw] max-[600px]:size-[2.5vw] translate-x-[-50%] relative aspect-square rounded-full shadow-[0_0_12px_rgba(0,194,255,0.8)] jd-${item.id}`}
-                        style={activeStyle}
-                      ></div>
-                      <div
-                        className={`h-[94%] w-[2px] origin-bottom rounded-full jl-${item.id}`}
-                        style={activeStyle}
-                      ></div>
-                    </div>
+              <div className="p-5 flex-1 flex flex-col justify-between">
+                <div>
+                  <h3 className="font-heading text-xl text-white font-normal leading-snug">
+                    The journey doesn’t end at admission. Neither do we.
+                  </h3>
+                  <p className="mt-2 text-[13px] text-[#94A3B8] font-light leading-relaxed">
+                    Most consultancies disappear once fees are collected. We architect your roadmap through college academics, internships, and final campus placement.
+                  </p>
+                </div>
 
-                    <div className="mt-[-1vw] space-y-[0.8vw] max-[600px]:mt-[-2vw]">
-                      <h4
-                        className={`title-${item.id} font-heading font-normal text-[2.2vw] leading-none text-white max-[600px]:text-[6.4vw]`}
-                      >
-                        {item.year}
-                      </h4>
-                      <p
-                        className={`description-${item.id} w-[92%] text-[1.3vw] leading-relaxed max-[600px]:w-[90%] max-[600px]:text-[4.6vw] font-normal`}
-                        style={mutedTextStyle}
-                      >
-                        {item.content}
-                      </p>
-                    </div>
-                  </div>
-                ))}
+                <div className="pt-3 border-t border-white/[0.06] flex items-center justify-between text-xs font-mono text-[#00C2FF]">
+                  <span>7 Milestone Stages</span>
+                  <span className="flex items-center gap-1 text-[#94A3B8]">
+                    Explore track <ArrowRight className="size-3 text-[#00C2FF]" />
+                  </span>
+                </div>
               </div>
             </div>
 
-            {/* Bottom Half of Timeline */}
-            <div className="h-1/2 flex items-center justify-start w-full">
-              <div className="w-[34%] pt-[2vw] max-[600px]:pt-[5vw] max-[600px]:w-[30%] h-full">
-                <p
-                  className="font-mono text-[1.4vw] leading-none text-[#56D8E7] uppercase tracking-wider max-[600px]:text-[4.2vw]"
-                >
-                  {periodLabel}
-                </p>
-                <p className="text-xs text-[#94A3B8] font-light mt-2 hidden lg:block">
-                  Scroll horizontally to explore the architected roadmap.
-                </p>
+            {/* Central Timeline Axis & Interleaved Milestone Cards */}
+            <div className="relative h-[440px] flex items-center shrink-0">
+              {/* Continuous Centerline Track across all milestones */}
+              <div
+                aria-hidden="true"
+                className="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-[2px] bg-white/[0.12] z-0"
+              >
+                {/* Active Progress Gradient Overlay */}
+                <div
+                  ref={progressBarRef}
+                  className="h-full bg-gradient-to-r from-[#00C2FF] via-[#56D8E7] to-[#8052FF] shadow-[0_0_12px_rgba(0,194,255,0.8)] w-[15%]"
+                />
               </div>
 
-              <div className="w-full flex h-full gap-x-[20vw] ml-[7vw] max-[600px]:gap-x-[40vw] max-[600px]:ml-[7vw]">
-                {bottomData.map((item) => (
-                  <div
-                    key={`bottom-${item.id}`}
-                    className="relative h-full w-[25vw] px-[3vw] max-[600px]:w-[70vw] max-[600px]:px-[7vw]"
-                  >
-                    <div className="w-full absolute left-0 bottom-[-1%] h-full">
-                      <div
-                        className={`h-[94%] origin-top w-[2px] rounded-full max-[600px]:h-full jl-${item.id}`}
-                        style={activeStyle}
-                      ></div>
-                      <div
-                        className={`size-[1vw] max-[600px]:size-[2.5vw] translate-x-[-50%] relative w-auto aspect-square rounded-full shadow-[0_0_12px_rgba(0,194,255,0.8)] jd-${item.id}`}
-                        style={activeStyle}
-                      ></div>
-                    </div>
+              {/* Milestone Columns */}
+              <div className="relative z-10 flex items-center gap-8 sm:gap-12">
+                {interleavedMilestones.map(({ item, position, index }) => {
+                  if (!item) return null;
+                  const Icon = item.icon || Sparkles;
+                  const isTop = position === "top";
 
-                    <div className="flex h-full w-full flex-col justify-end space-y-[0.8vw]">
-                      <h4
-                        className={`title-${item.id} font-heading font-normal text-[2.2vw] leading-none text-white max-[600px]:text-[6.4vw]`}
-                      >
-                        {item.year}
-                      </h4>
-                      <p
-                        className={`description-${item.id} w-[92%] text-[1.3vw] leading-relaxed max-[600px]:w-[90%] max-[600px]:text-[4.6vw] font-normal`}
-                        style={mutedTextStyle}
-                      >
-                        {item.content}
-                      </p>
+                  return (
+                    <div
+                      key={item.id}
+                      className="relative w-[300px] sm:w-[330px] h-[440px] shrink-0 flex flex-col items-center justify-center select-none"
+                    >
+                      {/* TOP HALF: Card if top, empty if bottom */}
+                      <div className="h-[190px] w-full flex flex-col justify-end">
+                        {isTop && (
+                          <div className="w-full rounded-2xl border border-white/10 bg-[#070e17]/90 backdrop-blur-md p-4 sm:p-5 shadow-[0_12px_36px_rgba(0,0,0,0.6)] hover:border-[#00C2FF]/50 transition-all duration-300 group">
+                            <div className="flex items-center justify-between">
+                              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-mono font-medium tracking-wider text-[#00C2FF] bg-[#00C2FF]/10 border border-[#00C2FF]/20">
+                                <span className="size-1.5 rounded-full bg-[#00C2FF]" />
+                                {item.stageBadge || `Stage 0${index}`}
+                              </span>
+                              <Icon className="size-4 text-[#56D8E7] opacity-80 group-hover:scale-110 transition-transform" />
+                            </div>
+
+                            <h4 className="mt-2.5 font-heading text-[16px] sm:text-[17px] font-normal text-white tracking-tight line-clamp-1">
+                              {item.phase || item.year}
+                            </h4>
+                            <p className="mt-1 text-[12.5px] leading-relaxed text-[#94A3B8] font-light line-clamp-2">
+                              {item.content}
+                            </p>
+
+                            {item.deliverable && (
+                              <div className="mt-2.5 pt-2 border-t border-white/[0.06] text-[10.5px] font-mono text-[#56D8E7] truncate">
+                                {item.deliverable}
+                              </div>
+                            )}
+                          </div>
+                        )}
+                      </div>
+
+                      {/* CENTER CONNECTOR & NODE */}
+                      <div className="relative h-[60px] w-full flex items-center justify-center">
+                        {/* Stem Line to Card */}
+                        {isTop ? (
+                          <div className="absolute bottom-1/2 left-1/2 -translate-x-1/2 w-[2px] h-[26px] bg-gradient-to-t from-[#00C2FF] to-[#00C2FF]/20" />
+                        ) : (
+                          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 w-[2px] h-[26px] bg-gradient-to-b from-[#00C2FF] to-[#00C2FF]/20" />
+                        )}
+
+                        {/* Central Glowing Milestone Dot */}
+                        <div
+                          className="relative z-20 size-6 rounded-full border-2 border-[#00C2FF] bg-[#070e17] flex items-center justify-center shadow-[0_0_16px_rgba(0,194,255,0.8)] cursor-pointer group"
+                          title={item.phase}
+                        >
+                          <div className="size-2 rounded-full bg-[#00C2FF] transition-transform duration-300 group-hover:scale-125" />
+                        </div>
+                      </div>
+
+                      {/* BOTTOM HALF: Card if bottom, empty if top */}
+                      <div className="h-[190px] w-full flex flex-col justify-start">
+                        {!isTop && (
+                          <div className="w-full rounded-2xl border border-white/10 bg-[#070e17]/90 backdrop-blur-md p-4 sm:p-5 shadow-[0_12px_36px_rgba(0,0,0,0.6)] hover:border-[#00C2FF]/50 transition-all duration-300 group">
+                            <div className="flex items-center justify-between">
+                              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-mono font-medium tracking-wider text-[#00C2FF] bg-[#00C2FF]/10 border border-[#00C2FF]/20">
+                                <span className="size-1.5 rounded-full bg-[#00C2FF]" />
+                                {item.stageBadge || `Stage 0${index}`}
+                              </span>
+                              <Icon className="size-4 text-[#56D8E7] opacity-80 group-hover:scale-110 transition-transform" />
+                            </div>
+
+                            <h4 className="mt-2.5 font-heading text-[16px] sm:text-[17px] font-normal text-white tracking-tight line-clamp-1">
+                              {item.phase || item.year}
+                            </h4>
+                            <p className="mt-1 text-[12.5px] leading-relaxed text-[#94A3B8] font-light line-clamp-2">
+                              {item.content}
+                            </p>
+
+                            {item.deliverable && (
+                              <div className="mt-2.5 pt-2 border-t border-white/[0.06] text-[10.5px] font-mono text-[#56D8E7] truncate">
+                                {item.deliverable}
+                              </div>
+                            )}
+                          </div>
+                        )}
+                      </div>
                     </div>
+                  );
+                })}
+
+                {/* 08. Concluding Milestone & Direct CTA Card */}
+                <div className="w-[300px] sm:w-[340px] h-[440px] shrink-0 rounded-2xl border border-[#00C2FF]/40 bg-gradient-to-b from-[#070e17] via-[#0A1624] to-[#04080e] p-6 shadow-[0_20px_50px_rgba(0,194,255,0.15)] flex flex-col justify-between">
+                  <div>
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono font-medium text-[#56D8E7] bg-[#00C2FF]/10 border border-[#00C2FF]/30">
+                      Lifetime Partnership
+                    </span>
+                    <h3 className="mt-4 font-heading text-2xl text-white font-normal leading-snug">
+                      Your career trajectory starts with one honest conversation.
+                    </h3>
+                    <p className="mt-2.5 text-[13px] text-[#94A3B8] font-light leading-relaxed">
+                      Zero commissions, verified facts, and continuous guidance until your first day at work.
+                    </p>
                   </div>
-                ))}
+
+                  <div className="space-y-3 pt-4 border-t border-white/[0.08]">
+                    <a
+                      href="https://wa.me/917795354043?text=Hi%20Education%20to%20Career%20Bridge%2C%20I%20would%20like%20guidance%20on%20my%20career%20and%20college%20options."
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-sm font-medium text-black bg-[#00C2FF] hover:bg-[#56D8E7] transition-all shadow-[0_0_20px_rgba(0,194,255,0.4)]"
+                    >
+                      <PhoneCall className="size-4" />
+                      <span>WhatsApp +91 77953 54043</span>
+                    </a>
+                    <a
+                      href="#booking"
+                      className="w-full inline-flex items-center justify-center py-2.5 px-4 rounded-xl text-xs font-mono text-[#94A3B8] hover:text-white border border-white/10 hover:border-white/20 transition-all"
+                    >
+                      Book 45-Min Discovery Call
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
+        </div>
+
+        {/* Bottom Status & Scroll Indicator */}
+        <div className="relative z-10 w-full max-w-7xl mx-auto flex items-center justify-between text-xs text-[#94A3B8] font-mono pt-2 border-t border-white/[0.06]">
+          <span className="flex items-center gap-2">
+            <span className="size-1.5 rounded-full bg-[#00C2FF]" />
+            <span>Continuous Guidance Across 7 Stages</span>
+          </span>
+          <span className="text-[#56D8E7]">Class 10 · Pre-Admission · Degree · Corporate Career</span>
         </div>
       </div>
     </section>
