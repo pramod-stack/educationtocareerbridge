@@ -12,8 +12,15 @@
   --color-silver: #bdbdbd;
   --color-violet: #8052ff;
   --color-violet-hover: #6e3df0;
-  --color-amber: #ffb829;
-  --color-teal: #15846e;
+  --color-amber: #ffd166;
+  --color-teal: #0f9f9a;
+  --color-teal-light: #56d8e7;
+  --color-navy: #10243a;
+  --color-navy-dark: #0a1624;
+  --color-navy-card: #0d1e31;
+  --color-navy-border: rgba(86, 216, 231, 0.15);
+  --color-brand-blue-soft: #f0f6fc;
+  --color-brand-offwhite: #fbfcfe;
 
   --color-background: #000000;
   --color-foreground: #ffffff;

@@ -112,7 +112,7 @@ function QuestionPill({ item }: { item: MarqueeItem }) {
 
 export function EducationCareerMarquee() {
   return (
-    <section className="relative bg-black py-24 sm:py-32 overflow-hidden border-t border-b border-white/[0.06]">
+    <section id="services" className="relative bg-black py-24 sm:py-32 overflow-hidden border-t border-b border-white/[0.06]">
       {/* Editorial Headline */}
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-16">
         <div className="max-w-3xl">

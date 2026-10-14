@@ -39,21 +39,18 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      {
-        url: '/icon-dark-32x32.png',
-      },
-      {
-        url: '/icon.svg',
-        type: 'image/svg+xml',
-      },
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/icon-dark-32x32.png', type: 'image/png', sizes: '32x32' },
+      { url: '/icon.svg', type: 'image/svg+xml' },
     ],
+    shortcut: '/favicon.ico',
     apple: '/apple-icon.png',
   },
 }
 
 export const viewport: Viewport = {
   colorScheme: 'dark',
-  themeColor: '#000000',
+  themeColor: '#0a1827',
 }
 
 import { SchemaOrg } from '@/components/site/schema-org'
@@ -70,6 +67,9 @@ export default function RootLayout({
       className={`dark bg-black ${inter.variable} ${manrope.variable}`}
     >
       <head>
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+        <link rel="apple-touch-icon" href="/apple-icon.png" />
         <SchemaOrg />
       </head>
       <body suppressHydrationWarning className="font-sans antialiased bg-black text-white">

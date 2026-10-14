@@ -223,30 +223,17 @@ export function JourneyTimeline() {
         {/* Signature Interactive Flowing Path Track */}
         <div className="mt-16 pt-4 pb-2">
           {/* Progress bar info */}
-          <div className="flex items-center justify-between text-xs font-mono text-[#9A9A9A] mb-6">
-            <span>MILESTONE {current.index} OF 11</span>
-            <span className="text-white font-normal">{Math.round(((active + 1) / milestones.length) * 100)}% JOURNEY COMPLETE</span>
+          <div className="flex items-center justify-between text-xs font-mono text-[#E2E8F0] mb-6">
+            <span className="text-[#00C2FF] font-medium">MILESTONE {current.index} OF 11</span>
+            <span className="text-white font-medium bg-white/[0.06] border border-white/10 px-3.5 py-1 rounded-full shadow-sm">
+              {Math.round(((active + 1) / milestones.length) * 100)}% JOURNEY COMPLETE
+            </span>
           </div>
 
-          {/* Horizontal flowing path line */}
-          <div className="relative">
-            {/* Base gray path */}
-            <div
-              aria-hidden="true"
-              className="absolute top-6 left-0 right-0 h-[2px] bg-white/[0.12] -z-0"
-            />
-            {/* Illuminated glowing completed path */}
-            <div
-              aria-hidden="true"
-              className="absolute top-6 left-0 h-[2px] bg-gradient-to-r from-[#8052FF] via-[#a584ff] to-[#15846E] shadow-[0_0_12px_rgba(128,82,255,0.8)] transition-all duration-500 -z-0"
-              style={{
-                width: `${(active / (milestones.length - 1)) * 100}%`,
-              }}
-            />
-
-            {/* Scrollable / Clickable Milestone Nodes */}
+          {/* Smooth Scrollable Flowing Track */}
+          <div className="overflow-x-auto pb-6 pt-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             <ul
-              className="flex items-start gap-4 sm:gap-6 overflow-x-auto pb-6 pt-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden snap-x snap-mandatory"
+              className="flex items-start min-w-max px-2 py-2"
               role="tablist"
               aria-label="Journey milestones"
             >
@@ -256,37 +243,58 @@ export function JourneyTimeline() {
                 const isCompleted = idx < active
 
                 return (
-                  <li key={m.index} className="shrink-0 snap-center">
+                  <li key={m.index} className="relative shrink-0 w-28 sm:w-32 flex flex-col items-center">
+                    {/* Seamless Connecting Line Segment to Next Node */}
+                    {idx < milestones.length - 1 && (
+                      <div
+                        aria-hidden="true"
+                        className="absolute top-[28px] left-1/2 w-full h-[2px] -translate-y-1/2 z-0 pointer-events-none"
+                      >
+                        {/* Base gray path */}
+                        <div className="absolute inset-0 bg-white/[0.15]" />
+                        {/* Active illuminated path */}
+                        <div
+                          className={cn(
+                            'absolute inset-0 bg-gradient-to-r from-[#8052FF] via-[#a584ff] to-[#00C2FF] shadow-[0_0_12px_rgba(128,82,255,0.9)] transition-all duration-500',
+                            idx < active ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0 origin-left'
+                          )}
+                        />
+                      </div>
+                    )}
+
+                    {/* Node Button */}
                     <button
                       type="button"
                       role="tab"
                       aria-selected={isActive}
                       onClick={() => setActive(idx)}
-                      className="group flex flex-col items-center gap-3 text-center outline-none focus-visible:ring-2 focus-visible:ring-[#8052FF] rounded-2xl p-1 w-24 sm:w-28 transition-transform duration-300 hover:-translate-y-1"
+                      className="group relative z-10 flex flex-col items-center text-center outline-none focus-visible:ring-2 focus-visible:ring-[#8052FF] rounded-2xl w-full transition-transform duration-300 hover:-translate-y-1"
                     >
-                      {/* Node Circle */}
-                      <div
-                        className={cn(
-                          'relative z-10 size-12 rounded-full flex items-center justify-center border transition-all duration-300',
-                          isActive
-                            ? 'border-[#8052FF] bg-[#8052FF] text-white shadow-[0_0_24px_rgba(128,82,255,0.7)] scale-110'
-                            : isCompleted
-                              ? 'border-white/30 bg-[#15846E]/20 text-[#15846E] border-[#15846E]'
-                              : 'border-white/[0.15] bg-black text-[#9A9A9A] hover:border-white/40 hover:text-white'
-                        )}
-                      >
-                        <Icon className="size-5" />
+                      {/* Opaque black backing wrapper so the line never cuts inside the circle */}
+                      <div className="p-1 bg-black rounded-full shadow-[0_0_10px_rgba(0,0,0,0.95)]">
+                        <div
+                          className={cn(
+                            'size-12 rounded-full flex items-center justify-center border transition-all duration-300',
+                            isActive
+                              ? 'border-[#8052FF] bg-[#8052FF] text-white shadow-[0_0_28px_rgba(128,82,255,0.85)] scale-110'
+                              : isCompleted
+                                ? 'border-[#15846E] bg-[#0c241e] text-[#15846E] shadow-[0_0_12px_rgba(21,132,110,0.4)]'
+                                : 'border-white/20 bg-black text-[#A1A1AA] group-hover:border-white/50 group-hover:text-white'
+                          )}
+                        >
+                          <Icon className="size-5" />
+                        </div>
                       </div>
 
                       {/* Title & Stage */}
-                      <div className="flex flex-col items-center leading-tight">
-                        <span className="text-[10px] font-mono text-[#9A9A9A]">
+                      <div className="flex flex-col items-center leading-tight mt-2 px-1">
+                        <span className="text-[10.5px] font-mono text-[#A1A1AA] font-medium">
                           {m.index}
                         </span>
                         <span
                           className={cn(
-                            'text-[12px] font-normal tracking-tight mt-0.5 line-clamp-2 transition-colors',
-                            isActive ? 'text-white font-medium' : 'text-[#9A9A9A] group-hover:text-white'
+                            'text-[12.5px] font-normal tracking-tight mt-0.5 line-clamp-2 transition-colors',
+                            isActive ? 'text-white font-medium' : 'text-[#D4D4D8] group-hover:text-white'
                           )}
                         >
                           {m.title}
@@ -330,21 +338,21 @@ export function JourneyTimeline() {
                 <h3 className="mt-4 font-heading text-3xl sm:text-4xl font-normal text-white tracking-tight">
                   {current.title}
                 </h3>
-                <p className="mt-2 text-base font-normal text-[#BDBDBD]">
+                <p className="mt-2 text-base font-normal text-[#FFB829]">
                   {current.summary}
                 </p>
 
-                <p className="mt-5 text-[16px] leading-relaxed text-[#9A9A9A] font-light max-w-xl">
+                <p className="mt-5 text-[16px] leading-relaxed text-[#F3F4F6] font-normal max-w-xl">
                   {current.detail}
                 </p>
 
                 {/* Navigation buttons */}
-                <div className="mt-8 flex items-center gap-3 pt-6 border-t border-white/[0.08]">
+                <div className="mt-8 flex items-center gap-3 pt-6 border-t border-white/[0.1]">
                   <button
                     type="button"
                     onClick={() => setActive((prev) => Math.max(0, prev - 1))}
                     disabled={active === 0}
-                    className="inline-flex items-center gap-2 rounded-full border border-white/[0.12] px-4 py-2 text-xs font-normal text-white disabled:opacity-30 disabled:pointer-events-none hover:bg-white/[0.05] transition-colors"
+                    className="inline-flex items-center gap-2 rounded-full border border-white/20 px-4 py-2 text-xs font-normal text-white disabled:opacity-30 disabled:pointer-events-none hover:bg-white/[0.08] transition-colors"
                   >
                     <ChevronLeft className="size-4" />
                     <span>Previous Stage</span>
@@ -353,7 +361,7 @@ export function JourneyTimeline() {
                     type="button"
                     onClick={() => setActive((prev) => Math.min(milestones.length - 1, prev + 1))}
                     disabled={active === milestones.length - 1}
-                    className="inline-flex items-center gap-2 rounded-full border border-white/[0.12] px-4 py-2 text-xs font-normal text-white disabled:opacity-30 disabled:pointer-events-none hover:bg-white/[0.05] transition-colors"
+                    className="inline-flex items-center gap-2 rounded-full border border-white/20 px-4 py-2 text-xs font-normal text-white disabled:opacity-30 disabled:pointer-events-none hover:bg-white/[0.08] transition-colors"
                   >
                     <span>Next Stage</span>
                     <ChevronRight className="size-4" />
@@ -362,7 +370,7 @@ export function JourneyTimeline() {
               </div>
 
               {/* Deliverables Checklist */}
-              <div className="rounded-2xl border border-white/[0.08] bg-black/60 p-6 sm:p-8">
+              <div className="rounded-2xl border border-white/[0.1] bg-black/75 p-6 sm:p-8">
                 <div className="flex items-center gap-2 mb-5">
                   <Sparkles className="size-4 text-[#FFB829]" />
                   <h4 className="text-sm font-heading font-medium uppercase tracking-wider text-white">
@@ -373,8 +381,8 @@ export function JourneyTimeline() {
                 <ul className="space-y-4">
                   {current.deliverables.map((item, i) => (
                     <li key={i} className="flex items-start gap-3">
-                      <CheckCircle2 className="size-4 text-[#8052FF] shrink-0 mt-1" />
-                      <span className="text-[14.5px] leading-relaxed text-[#BDBDBD] font-light">
+                      <CheckCircle2 className="size-4 text-[#00C2FF] shrink-0 mt-1" />
+                      <span className="text-[14.5px] leading-relaxed text-[#E2E8F0] font-normal">
                         {item}
                       </span>
                     </li>
