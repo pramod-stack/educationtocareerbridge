@@ -5,6 +5,7 @@ import { Marquee } from '@/components/ui/marquee'
 import { Compass, GraduationCap, ShieldCheck, TrendingUp, ArrowUpRight } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { FadeUp, SplitLineReveal } from '@/components/ui/motion-text'
+import Timeline from '@/components/ui/timeline'
 
 export type MarqueeItem = {
   text: string
@@ -112,7 +113,8 @@ function QuestionPill({ item }: { item: MarqueeItem }) {
 
 export function EducationCareerMarquee() {
   return (
-    <section id="services" className="relative bg-black py-24 sm:py-32 overflow-hidden border-t border-b border-white/[0.06]">
+    <>
+      <section id="services" className="relative bg-black py-24 sm:py-32 overflow-hidden border-t border-b border-white/[0.06]">
       {/* Editorial Headline */}
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-16">
         <div className="max-w-3xl">
@@ -188,9 +190,23 @@ export function EducationCareerMarquee() {
           </Marquee>
         </div>
       </div>
+    </section>
 
-      {/* Feature Grid following 21st.dev / Refero philosophy (no bulky cards, pristine spacing) */}
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-24">
+    {/* One Partner Every Stage — Horizontal Pinned Journey Timeline */}
+    <Timeline
+      title="One Partner. Every Stage."
+      periodLabel="Class 10 — First Job Placement"
+      backgroundColor="#000000"
+      textColor="#ffffff"
+      mutedTextColor="#94a3b8"
+      activeColor="#00c2ff"
+      imageUrl="/images/parents-counselling.png"
+      imageAlt="Education Bridge counsellor mentoring student and parents"
+    />
+
+    {/* Feature Grid following 21st.dev / Refero philosophy (no bulky cards, pristine spacing) */}
+    <section className="bg-black py-20 border-b border-white/[0.08]">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-white/[0.08] border-y border-white/[0.08]">
           {features.map((feature) => {
             const Icon = feature.icon
@@ -228,5 +244,6 @@ export function EducationCareerMarquee() {
         </div>
       </div>
     </section>
+  </>
   )
 }
