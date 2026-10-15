@@ -68,7 +68,7 @@ export function SitePreloader() {
             scale: 1.03,
             transition: { duration: 0.7, ease: [0.19, 1, 0.22, 1] },
           }}
-          className="fixed inset-0 z-[99999] flex flex-col items-center justify-center bg-black select-none overflow-hidden"
+          className="fixed inset-0 z-[99999] flex flex-col items-center justify-center bg-background text-foreground select-none overflow-hidden"
         >
           {/* Ambient Cosmic Radial Glows */}
           <div

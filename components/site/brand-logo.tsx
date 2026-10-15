@@ -48,11 +48,11 @@ export function BrandLogo({
           />
         </div>
         <div className="flex flex-col leading-none">
-          <span className="font-heading text-[15px] font-normal tracking-tight text-white">
+          <span className="font-heading text-[15px] font-normal tracking-tight text-foreground">
             Education Bridge
           </span>
           {showSubtitle && (
-            <span className="text-[9.5px] font-mono tracking-[0.2em] text-[#9A9A9A] uppercase mt-0.5">
+            <span className="text-[9.5px] font-mono tracking-[0.2em] text-muted-foreground uppercase mt-0.5">
               Career Architects
             </span>
           )}
@@ -81,13 +81,13 @@ export function BrandLogo({
 
       {/* Synchronized Vector Wordmark */}
       <div className="flex flex-col justify-center leading-tight">
-        <div className="flex items-baseline gap-1 text-[14px] sm:text-[15.5px] font-medium tracking-[0.04em] uppercase text-white">
+        <div className="flex items-baseline gap-1 text-[14px] sm:text-[15.5px] font-medium tracking-[0.04em] uppercase text-foreground">
           <span>Education</span>
           <span className="text-[#00C2FF] font-semibold text-[13px] sm:text-[14.5px]">To</span>
           <span>Career</span>
         </div>
         <div className="flex items-center gap-2 mt-0.5">
-          <span className="text-[10px] sm:text-[10.5px] tracking-[0.28em] font-mono text-[#9A9A9A] uppercase font-light">
+          <span className="text-[10px] sm:text-[10.5px] tracking-[0.28em] font-mono text-muted-foreground uppercase font-light">
             Bridge
           </span>
           {showSubtitle && (

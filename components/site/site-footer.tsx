@@ -21,7 +21,7 @@ const navigationLinks = [
 
 export function SiteFooter() {
   return (
-    <footer className="bg-black text-white border-t border-white/[0.08] py-20 lg:py-24">
+    <footer className="bg-card text-card-foreground border-t border-border py-20 lg:py-24 transition-colors duration-300">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:gap-20 items-start">
           {/* Brand Col */}
@@ -30,15 +30,15 @@ export function SiteFooter() {
               <BrandLogo showSubtitle={true} />
             </Link>
 
-            <p className="text-[15px] leading-relaxed text-[#9A9A9A] font-light">
+            <p className="text-[15px] leading-relaxed text-muted-foreground font-light">
               We guide students and their families through the high-stakes decisions that shape a career —
               from Class 10 assessment to undergraduate degree, college selection, internships, and initial corporate placement.
             </p>
 
-            <div className="space-y-3 pt-2 text-sm text-[#9A9A9A] font-light">
+            <div className="space-y-3 pt-2 text-sm text-muted-foreground font-light">
               <div className="flex items-center gap-3">
                 <Phone className="size-4 text-[#8052FF]" />
-                <a href="tel:+917795354043" className="hover:text-white transition-colors font-mono">
+                <a href="tel:+917795354043" className="hover:text-foreground transition-colors font-mono">
                   +91 77953 54043
                 </a>
               </div>
@@ -55,7 +55,7 @@ export function SiteFooter() {
               </div>
               <div className="flex items-center gap-3">
                 <Mail className="size-4 text-[#8052FF]" />
-                <a href="mailto:mentors@educationtocareerbridge.com" className="hover:text-white transition-colors">
+                <a href="mailto:mentors@educationtocareerbridge.com" className="hover:text-foreground transition-colors">
                   mentors@educationtocareerbridge.com
                 </a>
               </div>
@@ -68,7 +68,7 @@ export function SiteFooter() {
 
           {/* Quick Nav Links */}
           <div>
-            <h3 className="text-xs font-mono tracking-[0.2em] text-white/50 uppercase mb-6">
+            <h3 className="text-xs font-mono tracking-[0.2em] text-muted-foreground uppercase mb-6">
               Navigation &amp; Services
             </h3>
             <ul className="grid grid-cols-2 gap-x-8 gap-y-3.5">
@@ -76,7 +76,7 @@ export function SiteFooter() {
                 <li key={link.label}>
                   <a
                     href={link.href}
-                    className="text-sm text-[#9A9A9A] hover:text-white transition-colors font-light"
+                    className="text-sm text-muted-foreground hover:text-foreground transition-colors font-light"
                   >
                     {link.label}
                   </a>
@@ -84,11 +84,11 @@ export function SiteFooter() {
               ))}
             </ul>
 
-            <div className="mt-10 p-5 rounded-2xl border border-white/[0.06] bg-white/[0.015]">
+            <div className="mt-10 p-5 rounded-2xl border border-border bg-secondary/40">
               <span className="text-[11px] font-mono text-[#FFB829] uppercase tracking-wider block mb-1">
                 Zero Commission Principle
               </span>
-              <p className="text-xs text-[#9A9A9A] leading-relaxed font-light">
+              <p className="text-xs text-muted-foreground leading-relaxed font-light">
                 No capitation kickbacks. No forced college partnerships. Our loyalty is exclusively to the student sitting across from us.
               </p>
             </div>
@@ -96,7 +96,7 @@ export function SiteFooter() {
         </div>
 
         {/* Bottom Baseline Copyright & Disclaimers */}
-        <div className="mt-16 pt-8 border-t border-white/[0.08] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#9A9A9A]/80 font-light">
+        <div className="mt-16 pt-8 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted-foreground font-light">
           <p>© {new Date().getFullYear()} Education Bridge. All rights reserved.</p>
           <p className="text-center sm:text-right">
             Questions → Clarity → Direction → Career

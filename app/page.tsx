@@ -21,7 +21,7 @@ import { AmbientGlow } from '@/components/ui/ambient-glow'
 
 export default function HomePage() {
   return (
-    <div className="flex min-h-svh flex-col bg-black text-white selection:bg-[#8052FF] selection:text-white relative">
+    <div className="flex min-h-svh flex-col bg-background text-foreground selection:bg-[#8052FF] selection:text-white relative transition-colors duration-300">
       {/* 00. Cinematic Official Logo Preloader */}
       <SitePreloader />
 

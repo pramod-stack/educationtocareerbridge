@@ -49,11 +49,14 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  colorScheme: 'dark',
-  themeColor: '#0a1827',
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#f8fafc' },
+    { media: '(prefers-color-scheme: dark)', color: '#000000' },
+  ],
 }
 
 import { SchemaOrg } from '@/components/site/schema-org'
+import { ThemeProvider } from '@/components/site/theme-provider'
 
 export default function RootLayout({
   children,
@@ -64,7 +67,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`dark bg-black ${inter.variable} ${manrope.variable}`}
+      className={`${inter.variable} ${manrope.variable}`}
     >
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
@@ -72,8 +75,10 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/apple-icon.png" />
         <SchemaOrg />
       </head>
-      <body suppressHydrationWarning className="font-sans antialiased bg-black text-white">
-        {children}
+      <body suppressHydrationWarning className="font-sans antialiased bg-background text-foreground transition-colors duration-300">
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
+          {children}
+        </ThemeProvider>
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>

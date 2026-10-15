@@ -28,7 +28,7 @@ export function Hero() {
     <section
       id="top"
       aria-label="Education to Career Bridge Hero"
-      className="relative w-full overflow-hidden bg-black min-h-[92vh] flex flex-col justify-between pt-28 sm:pt-36 lg:pt-40 pb-16 sm:pb-20 border-b border-white/[0.08]"
+      className="relative w-full overflow-hidden bg-background min-h-[92vh] flex flex-col justify-between pt-28 sm:pt-36 lg:pt-40 pb-16 sm:pb-20 border-b border-border transition-colors duration-300"
     >
       {/* Background Subtle Gradient Illumination */}
       <div
@@ -52,8 +52,8 @@ export function Hero() {
           <div className="lg:col-span-7 flex flex-col items-start text-left gap-6">
             {/* Eyebrow Badge */}
             <FadeUp delay={0.05}>
-              <span className="inline-flex items-center gap-2 rounded-full border border-[#00C2FF]/30 bg-[#070e17]/80 backdrop-blur-md px-4 py-1.5 text-[11px] sm:text-[12px] font-mono tracking-[0.2em] text-[#56D8E7] uppercase shadow-[0_0_20px_rgba(0,194,255,0.15)]">
-                <Sparkles className="size-3 text-[#56D8E7]" aria-hidden="true" />
+              <span className="inline-flex items-center gap-2 rounded-full border border-[#00C2FF]/30 bg-card/80 backdrop-blur-md px-4 py-1.5 text-[11px] sm:text-[12px] font-mono tracking-[0.2em] text-[#00C2FF] uppercase shadow-[0_0_20px_rgba(0,194,255,0.12)]">
+                <Sparkles className="size-3 text-[#00C2FF]" aria-hidden="true" />
                 GUIDE · SUPPORT · EMPOWER · BENGALURU
               </span>
             </FadeUp>
@@ -61,14 +61,14 @@ export function Hero() {
             {/* Main Headlines */}
             <div className="space-y-3">
               <FadeUp delay={0.15}>
-                <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-[4rem] font-normal tracking-[-0.035em] text-white leading-[1.06]">
+                <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-[4rem] font-normal tracking-[-0.035em] text-foreground leading-[1.06]">
                   From Education to Opportunity.
                 </h1>
               </FadeUp>
 
               <FadeUp delay={0.25}>
                 <p className="font-heading text-2xl sm:text-3xl md:text-4xl font-light tracking-[-0.03em] leading-snug">
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-[#56D8E7] to-[#00C2FF]">
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-foreground via-[#56D8E7] to-[#00C2FF]">
                     Your Future Starts With the Right Guidance.
                   </span>
                 </p>
@@ -77,7 +77,7 @@ export function Hero() {
 
             {/* Supporting Paragraph */}
             <FadeUp delay={0.35}>
-              <p className="text-[16px] sm:text-[18px] leading-relaxed text-[#CBD5E1] font-light max-w-2xl">
+              <p className="text-[16px] sm:text-[18px] leading-relaxed text-muted-foreground font-light max-w-2xl">
                 Choosing the right course, finding the right college, settling into a new city or
                 preparing for your career — we&apos;re here to help you navigate every next step with
                 greater confidence and zero commission bias.
@@ -102,7 +102,7 @@ export function Hero() {
                   href={whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-white/[0.04] backdrop-blur-md px-7 py-3.5 text-[15px] font-medium text-white transition-all duration-300 hover:border-[#56D8E7] hover:bg-[#56D8E7]/10 outline-none"
+                  className="inline-flex items-center justify-center gap-2 rounded-full border border-border bg-card/60 backdrop-blur-md px-7 py-3.5 text-[15px] font-medium text-foreground transition-all duration-300 hover:border-[#56D8E7] hover:bg-[#56D8E7]/10 outline-none"
                   title="Chat with our education counselling team on WhatsApp"
                 >
                   <MessageCircle className="size-4 text-[#56D8E7]" />
@@ -113,10 +113,10 @@ export function Hero() {
 
             {/* Supporting Services Strip */}
             <FadeUp delay={0.55}>
-              <div className="pt-2 flex flex-wrap items-center gap-x-3 gap-y-2 text-xs sm:text-[13px] text-[#94A3B8] font-mono">
+              <div className="pt-2 flex flex-wrap items-center gap-x-3 gap-y-2 text-xs sm:text-[13px] text-muted-foreground font-mono">
                 {supportingServices.map((service, idx) => (
                   <React.Fragment key={service}>
-                    <span className="hover:text-white transition-colors">{service}</span>
+                    <span className="hover:text-foreground transition-colors">{service}</span>
                     {idx < supportingServices.length - 1 && (
                       <span className="text-[#00C2FF]/40" aria-hidden="true">
                         ·
@@ -129,7 +129,7 @@ export function Hero() {
 
             {/* Trust Points */}
             <FadeUp delay={0.65}>
-              <div className="pt-2 flex flex-wrap items-center gap-x-6 gap-y-2 text-xs sm:text-sm text-[#E2E8F0] font-light">
+              <div className="pt-2 flex flex-wrap items-center gap-x-6 gap-y-2 text-xs sm:text-sm text-foreground/90 font-light">
                 {trustPoints.map((point) => (
                   <span key={point} className="flex items-center gap-1.5">
                     <CheckCircle2 className="size-4 text-[#00C2FF]" />
@@ -143,7 +143,7 @@ export function Hero() {
           {/* Right Column: Neat Photo Grid (5 Cols) */}
           <div className="lg:col-span-5 relative w-full">
             <FadeUp delay={0.25}>
-              <div className="relative grid grid-cols-2 gap-3 sm:gap-4 p-2 sm:p-3 rounded-3xl border border-white/10 bg-[#070e17]/60 backdrop-blur-md shadow-[0_20px_50px_rgba(0,0,0,0.8)]">
+              <div className="relative grid grid-cols-2 gap-3 sm:gap-4 p-2 sm:p-3 rounded-3xl border border-border bg-card/60 backdrop-blur-md shadow-xl dark:shadow-[0_20px_50px_rgba(0,0,0,0.8)]">
                 {/* Photo 1: Graduating Convocation Students */}
                 <div className="relative group overflow-hidden rounded-2xl h-48 sm:h-56 bg-slate-900 border border-white/[0.08]">
                   <Image
@@ -226,9 +226,9 @@ export function Hero() {
                 </div>
 
                 {/* Floating Central Trust Chip */}
-                <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2.5 px-4 py-2 rounded-full border border-white/15 bg-black/90 backdrop-blur-md shadow-[0_10px_25px_rgba(0,0,0,0.8)] whitespace-nowrap">
+                <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2.5 px-4 py-2 rounded-full border border-border bg-card/95 backdrop-blur-md shadow-lg whitespace-nowrap">
                   <Building2 className="size-3.5 text-[#00C2FF]" />
-                  <span className="text-xs font-mono text-[#F1F5F9] font-medium">
+                  <span className="text-xs font-mono text-foreground font-medium">
                     100+ Premier Bangalore Colleges
                   </span>
                 </div>

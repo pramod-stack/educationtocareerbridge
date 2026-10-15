@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   Cpu,
   Stethoscope,
@@ -23,8 +23,13 @@ import {
   PhoneCall,
   Info,
   ExternalLink,
+  Layers,
+  LayoutGrid,
 } from 'lucide-react'
+import { useTheme } from 'next-themes'
 import { FadeUp } from '@/components/ui/motion-text'
+import GlassFolder, { ArtPreset, FolderFile } from '@/components/ui/glass-folder-cards'
+import { openCourseEnquiry } from '@/components/site/student-enquiry-modal'
 import { cn } from '@/lib/utils'
 
 export type CourseDetail = {
@@ -47,6 +52,8 @@ export type StreamCategory = {
   icon: React.ElementType
   tagline: string
   accentColor: string
+  artPreset?: ArtPreset
+  image?: string
   courses: CourseDetail[]
 }
 
@@ -58,6 +65,7 @@ export const STREAMS_DATA: StreamCategory[] = [
     icon: Cpu,
     tagline: 'Core engineering streams and emerging high-tech disciplines',
     accentColor: '#00C2FF',
+    artPreset: 'ember',
     courses: [
       {
         id: 'cse',
@@ -159,6 +167,8 @@ export const STREAMS_DATA: StreamCategory[] = [
     icon: Stethoscope,
     tagline: 'Healthcare, clinical research, surgery, nursing and paramedic studies',
     accentColor: '#56D8E7',
+    image: '/images/whatsapp/campus_7.jpeg',
+    artPreset: 'glacier',
     courses: [
       {
         id: 'mbbs',
@@ -257,6 +267,7 @@ export const STREAMS_DATA: StreamCategory[] = [
     icon: BrainCircuit,
     tagline: 'Next-generation digital computing, autonomous systems and cloud protection',
     accentColor: '#8052FF',
+    artPreset: 'verdant',
     courses: [
       {
         id: 'ai-ml',
@@ -323,6 +334,7 @@ export const STREAMS_DATA: StreamCategory[] = [
     icon: Briefcase,
     tagline: 'Leadership, corporate strategy, operations and entrepreneurship',
     accentColor: '#FFD166',
+    artPreset: 'dusk',
     courses: [
       {
         id: 'bba-regular',
@@ -389,6 +401,7 @@ export const STREAMS_DATA: StreamCategory[] = [
     icon: TrendingUp,
     tagline: 'Accounting, auditing, banking, taxation and economic analysis',
     accentColor: '#10B981',
+    artPreset: 'glacier',
     courses: [
       {
         id: 'bcom-ca-cma',
@@ -432,6 +445,7 @@ export const STREAMS_DATA: StreamCategory[] = [
     icon: Scale,
     tagline: 'Constitutional, corporate, criminal and international jurisprudence',
     accentColor: '#F59E0B',
+    artPreset: 'aurora',
     courses: [
       {
         id: 'ba-llb',
@@ -465,6 +479,7 @@ export const STREAMS_DATA: StreamCategory[] = [
     icon: Palette,
     tagline: 'Visual arts, spatial design, fashion technology and media production',
     accentColor: '#EC4899',
+    artPreset: 'aurora',
     courses: [
       {
         id: 'ux-ui',
@@ -508,6 +523,7 @@ export const STREAMS_DATA: StreamCategory[] = [
     icon: Plane,
     tagline: 'Global tourism, culinary arts, hotel operations and airport management',
     accentColor: '#0EA5E9',
+    artPreset: 'dusk',
     courses: [
       {
         id: 'hotel-mgmt',
@@ -551,6 +567,7 @@ export const STREAMS_DATA: StreamCategory[] = [
     icon: Sprout,
     tagline: 'Agribusiness, food safety, agronomy and sustainable farming systems',
     accentColor: '#84CC16',
+    artPreset: 'verdant',
     courses: [
       {
         id: 'bsc-agri',
@@ -582,6 +599,14 @@ export function CoursesDirectory() {
   const [activeStreamId, setActiveStreamId] = useState<string>('engineering')
   const [searchQuery, setSearchQuery] = useState<string>('')
   const [selectedCourse, setSelectedCourse] = useState<CourseDetail | null>(null)
+  const [viewMode, setViewMode] = useState<'both' | 'folders' | 'grid'>('both')
+
+  const { resolvedTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+  const folderTone = mounted && resolvedTheme === 'dark' ? 'dark' : 'light'
 
   const activeStream =
     STREAMS_DATA.find((s) => s.id === activeStreamId) || STREAMS_DATA[0]
@@ -602,6 +627,19 @@ export function CoursesDirectory() {
     setSelectedCourse(course)
   }
 
+  const handleSelectCourseFile = (file: FolderFile, stream: StreamCategory) => {
+    // Find the corresponding course in the stream
+    const matched = stream.courses.find(
+      (c) => c.name.toLowerCase() === file.name.toLowerCase() || c.name.includes(file.name)
+    )
+    if (matched) {
+      setSelectedCourse(matched)
+    } else {
+      // If direct match not found, construct detail and open enquiry
+      openCourseEnquiry(file.name, stream.label)
+    }
+  }
+
   const handleGetAdmission = (courseName: string) => {
     const message = encodeURIComponent(
       `Hi Education to Career Bridge, I want to get admission assistance for ${courseName} in Bangalore colleges.`
@@ -612,51 +650,96 @@ export function CoursesDirectory() {
   return (
     <section
       id="courses-directory"
-      className="relative bg-black py-24 sm:py-32 border-b border-white/[0.08] overflow-hidden"
+      className="relative bg-background py-24 sm:py-32 border-b border-border overflow-hidden transition-colors duration-300"
     >
       {/* Ambient background glow */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_50%_10%,rgba(0,194,255,0.06),transparent_75%)]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_50%_10%,rgba(0,194,255,0.07),transparent_75%)]"
       />
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="max-w-3xl">
-          <FadeUp delay={0}>
-            <span className="text-[12px] font-mono font-medium tracking-[0.2em] text-[#00C2FF] uppercase">
-              BANGALORE HIGHER EDUCATION DIRECTORY
-            </span>
-          </FadeUp>
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
+          <div className="max-w-3xl">
+            <FadeUp delay={0}>
+              <span className="text-[12px] font-mono font-medium tracking-[0.2em] text-[#00C2FF] uppercase">
+                BANGALORE HIGHER EDUCATION DIRECTORY
+              </span>
+            </FadeUp>
 
-          <FadeUp delay={0.1}>
-            <h2 className="mt-3 font-heading text-3xl sm:text-5xl lg:text-6xl font-normal tracking-tight text-white leading-[1.05]">
-              Explore 100+ Degrees, Branches &amp; Premier Colleges.
-            </h2>
-          </FadeUp>
+            <FadeUp delay={0.1}>
+              <h2 className="mt-3 font-heading text-3xl sm:text-5xl lg:text-6xl font-normal tracking-tight text-foreground leading-[1.05]">
+                Explore 100+ Degrees, Branches &amp; Premier Colleges.
+              </h2>
+            </FadeUp>
 
-          <FadeUp delay={0.2}>
-            <p className="mt-4 text-[16px] sm:text-[18px] text-[#94A3B8] font-light leading-relaxed">
-              Curated from our official Bangalore Higher Education Directory. Select a stream to discover verified degree specializations, eligibility, top institutes, and career outcomes.
-            </p>
+            <FadeUp delay={0.2}>
+              <p className="mt-4 text-[16px] sm:text-[18px] text-muted-foreground font-light leading-relaxed">
+                Curated from our official Bangalore Higher Education Directory. Tap any 3D Glass Folder to pull out real course sheets, explore verified eligibility, and connect for direct admission guidance.
+              </p>
+            </FadeUp>
+          </div>
+
+          {/* View Mode Toggle */}
+          <FadeUp delay={0.25} className="shrink-0 flex items-center gap-2 p-1.5 rounded-2xl border border-border bg-card/60 backdrop-blur-md">
+            <button
+              type="button"
+              onClick={() => setViewMode('both')}
+              className={cn(
+                'flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-medium transition-all cursor-pointer',
+                viewMode === 'both'
+                  ? 'bg-primary text-white shadow-sm'
+                  : 'text-muted-foreground hover:text-foreground'
+              )}
+            >
+              <Sparkles className="size-3.5" />
+              <span>All Views</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => setViewMode('folders')}
+              className={cn(
+                'flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-medium transition-all cursor-pointer',
+                viewMode === 'folders'
+                  ? 'bg-primary text-white shadow-sm'
+                  : 'text-muted-foreground hover:text-foreground'
+              )}
+            >
+              <Layers className="size-3.5" />
+              <span>3D Glass Folders</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => setViewMode('grid')}
+              className={cn(
+                'flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-medium transition-all cursor-pointer',
+                viewMode === 'grid'
+                  ? 'bg-primary text-white shadow-sm'
+                  : 'text-muted-foreground hover:text-foreground'
+              )}
+            >
+              <LayoutGrid className="size-3.5" />
+              <span>Course Cards</span>
+            </button>
           </FadeUp>
         </div>
 
         {/* Search Bar */}
         <FadeUp delay={0.25} className="mt-10 max-w-xl">
           <div className="relative flex items-center">
-            <Search className="absolute left-4 size-4 text-[#94A3B8]" />
+            <Search className="absolute left-4 size-4 text-muted-foreground" />
             <input
               type="text"
-              placeholder="Search CSE, MBBS, BBA, Nursing, RVCE, St. John's..."
+              placeholder="Search CSE, MBBS, BBA, Nursing, RVCE, St. John's, NLSIU..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full rounded-2xl border border-white/10 bg-[#070e17]/80 backdrop-blur-md pl-11 pr-10 py-3.5 text-sm text-white placeholder:text-slate-500 focus:border-[#00C2FF] focus:outline-none focus:ring-1 focus:ring-[#00C2FF] transition-all"
+              className="w-full rounded-2xl border border-input bg-card/80 backdrop-blur-md pl-11 pr-10 py-3.5 text-sm text-foreground placeholder:text-muted-foreground/60 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-all"
             />
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery('')}
-                className="absolute right-4 text-xs font-mono text-slate-400 hover:text-white"
+                className="absolute right-4 text-xs font-mono text-muted-foreground hover:text-foreground cursor-pointer"
               >
                 Clear
               </button>
@@ -664,7 +747,7 @@ export function CoursesDirectory() {
           </div>
         </FadeUp>
 
-        {/* Major Streams Horizontal Selector (Only shown when not searching) */}
+        {/* Major Streams Horizontal Selector (Matching Attached Reference Image) */}
         {!searchQuery && (
           <FadeUp delay={0.3} className="mt-8">
             <div className="flex items-center gap-2 overflow-x-auto pb-4 pt-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
@@ -676,16 +759,16 @@ export function CoursesDirectory() {
                     key={stream.id}
                     onClick={() => setActiveStreamId(stream.id)}
                     className={cn(
-                      'shrink-0 flex items-center gap-2.5 px-4 sm:px-5 py-2.5 rounded-full text-xs sm:text-[13px] font-medium transition-all duration-300 border select-none',
+                      'shrink-0 flex items-center gap-2.5 px-4 sm:px-5 py-2.5 rounded-full text-xs sm:text-[13px] font-medium transition-all duration-300 border select-none cursor-pointer',
                       isActive
-                        ? 'border-[#00C2FF] bg-[#00C2FF]/15 text-white shadow-[0_0_20px_rgba(0,194,255,0.3)]'
-                        : 'border-white/10 bg-white/[0.02] text-[#94A3B8] hover:border-white/20 hover:text-white'
+                        ? 'border-[#00C2FF] bg-[#00C2FF]/15 text-foreground shadow-[0_0_20px_rgba(0,194,255,0.25)] font-semibold'
+                        : 'border-border bg-card/60 text-muted-foreground hover:border-primary/40 hover:text-foreground'
                     )}
                   >
                     <Icon
                       className={cn(
                         'size-4',
-                        isActive ? 'text-[#00C2FF]' : 'text-slate-400'
+                        isActive ? 'text-[#00C2FF]' : 'text-muted-foreground'
                       )}
                     />
                     <span>{stream.shortLabel}</span>
@@ -695,127 +778,293 @@ export function CoursesDirectory() {
             </div>
 
             {/* Active Stream Tagline banner */}
-            <div className="mt-4 p-4 rounded-2xl border border-white/[0.06] bg-[#070e17]/60 flex items-center justify-between gap-4">
+            <div className="mt-4 p-4 rounded-2xl border border-border bg-card/70 flex items-center justify-between gap-4 backdrop-blur-sm">
               <div className="flex items-center gap-3">
-                <span className="size-2 rounded-full bg-[#00C2FF]" />
-                <span className="text-sm text-slate-300 font-light">
-                  <strong className="text-white font-medium">{activeStream.label}:</strong>{' '}
+                <span className="size-2 rounded-full bg-[#00C2FF] animate-pulse" />
+                <span className="text-sm text-muted-foreground font-light">
+                  <strong className="text-foreground font-medium">{activeStream.label}:</strong>{' '}
                   {activeStream.tagline}
                 </span>
               </div>
-              <span className="hidden sm:inline-block text-xs font-mono text-[#56D8E7]">
+              <span className="hidden sm:inline-block text-xs font-mono text-[#00C2FF] font-medium">
                 {activeStream.courses.length} Specializations Mapped
               </span>
             </div>
           </FadeUp>
         )}
 
-        {/* Courses Cards Grid */}
-        <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
-          {displayedCourses.map((course) => (
-            <div
-              key={course.id}
-              onClick={() => handleOpenInfo(course)}
-              className="group relative rounded-2xl border border-white/10 bg-[#070e17]/85 backdrop-blur-md p-6 flex flex-col justify-between transition-all duration-300 hover:border-[#00C2FF]/60 hover:bg-[#070e17] hover:shadow-[0_12px_36px_rgba(0,194,255,0.15)] cursor-pointer overflow-hidden"
-            >
+        {/* ------------------------------------------------------------- */}
+        {/* 01. SIGNATURE 3D GLASS FOLDER CARDS SHOWCASE DESK             */}
+        {/* ------------------------------------------------------------- */}
+        {(viewMode === 'both' || viewMode === 'folders') && !searchQuery && (
+          <div className="mt-12 pt-6 pb-12 border-y border-border relative">
+            <div className="mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div>
-                {/* Degree & Duration Header */}
-                <div className="flex items-center justify-between text-xs font-mono">
-                  <span className="px-2.5 py-1 rounded-full bg-[#00C2FF]/10 text-[#56D8E7] border border-[#00C2FF]/20 font-medium">
-                    {course.degree}
-                  </span>
-                  <span className="flex items-center gap-1 text-slate-400">
-                    <Clock className="size-3" />
-                    <span>{course.duration}</span>
-                  </span>
-                </div>
-
-                {/* Course Name */}
-                <h3 className="mt-4 font-heading text-lg font-normal text-white group-hover:text-[#56D8E7] transition-colors leading-snug">
-                  {course.name}
+                <span className="text-[11px] font-mono tracking-widest text-[#00C2FF] uppercase font-medium">
+                  INTERACTIVE 3D GLASS FOLDERS
+                </span>
+                <h3 className="font-heading text-xl sm:text-2xl text-foreground font-normal mt-0.5">
+                  Hover to Lean Glass · Click to Open · Select Any Course
                 </h3>
-
-                {/* Description */}
-                <p className="mt-2 text-xs sm:text-[13px] text-slate-300 font-light leading-relaxed line-clamp-3">
-                  {course.description}
-                </p>
-
-                {/* Top Colleges snippet */}
-                <div className="mt-4 pt-3 border-t border-white/[0.06]">
-                  <span className="text-[11px] font-mono text-slate-400 block mb-1 flex items-center gap-1.5">
-                    <Building2 className="size-3 text-[#00C2FF]" />
-                    <span>Premier Colleges:</span>
-                  </span>
-                  <p className="text-xs text-slate-200 line-clamp-1 font-light">
-                    {course.topColleges.slice(0, 3).join(', ')}
-                    {course.topColleges.length > 3 ? '...' : ''}
-                  </p>
-                </div>
               </div>
-
-              {/* Default Footer & HOVER ACTION BUTTONS */}
-              <div className="mt-5 pt-3 border-t border-white/[0.08] relative">
-                {/* Default resting state */}
-                <div className="flex items-center justify-between text-xs text-slate-400 group-hover:opacity-0 transition-opacity">
-                  <span className="font-mono text-[11px] text-[#56D8E7]">
-                    Tap for Syllabus &amp; Fees
-                  </span>
-                  <ArrowRight className="size-3.5 text-slate-400" />
-                </div>
-
-                {/* Hover Reveal: "Get More Info" & "Get Admission" */}
-                <div className="absolute inset-x-0 bottom-0 top-2 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation()
-                      handleOpenInfo(course)
-                    }}
-                    className="flex-1 inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl text-xs font-medium text-white bg-white/10 hover:bg-white/20 border border-white/15 transition-all"
-                  >
-                    <Info className="size-3.5 text-[#56D8E7]" />
-                    <span>Get More Info</span>
-                  </button>
-
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation()
-                      handleGetAdmission(course.name)
-                    }}
-                    className="flex-1 inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl text-xs font-medium text-black bg-[#00C2FF] hover:bg-[#56D8E7] shadow-[0_0_15px_rgba(0,194,255,0.4)] transition-all font-semibold"
-                  >
-                    <GraduationCap className="size-3.5" />
-                    <span>Get Admission</span>
-                  </button>
-                </div>
-              </div>
+              <p className="text-xs font-mono text-muted-foreground">
+                Showing {activeStream.shortLabel} Folder Archive
+              </p>
             </div>
-          ))}
-        </div>
+
+            {/* Glass Folders Row / Grid */}
+            <div className="relative flex flex-wrap items-end justify-center gap-x-12 gap-y-16 py-6">
+              {/* Primary Active Stream Folder */}
+              <div className="flex flex-col items-center">
+                <GlassFolder
+                  key={activeStream.id + folderTone}
+                  label={activeStream.shortLabel}
+                  meta={`${activeStream.courses.length} Degrees`}
+                  tone={folderTone}
+                  art={activeStream.artPreset || 'aurora'}
+                  image={activeStream.image}
+                  seed={activeStream.id.length * 13 + 7}
+                  width={340}
+                  defaultOpen={true}
+                  action="more"
+                  menu={[
+                    {
+                      label: `Enquire About ${activeStream.shortLabel}`,
+                      onSelect: () => openCourseEnquiry(activeStream.label, activeStream.label),
+                    },
+                    {
+                      label: 'WhatsApp Founder (+91 77953 54043)',
+                      onSelect: () => handleGetAdmission(activeStream.label),
+                    },
+                  ]}
+                  files={activeStream.courses.slice(0, 4).map((c, idx) => ({
+                    name: c.name,
+                    meta: `${c.degree} · ${c.duration}`,
+                    art: (['ember', 'aurora', 'dusk', 'glacier', 'verdant'] as ArtPreset[])[idx % 5],
+                  }))}
+                  onFileSelect={(file) => handleSelectCourseFile(file, activeStream)}
+                />
+                <span className="mt-4 text-xs font-mono text-muted-foreground">
+                  Active: <strong>{activeStream.label}</strong> (Click course to enquire)
+                </span>
+              </div>
+
+              {/* Sibling Featured Stream 1 */}
+              {(() => {
+                const siblingStream1 =
+                  STREAMS_DATA[(STREAMS_DATA.findIndex((s) => s.id === activeStreamId) + 1) % STREAMS_DATA.length]
+                return (
+                  <div className="hidden md:flex flex-col items-center">
+                    <GlassFolder
+                      key={siblingStream1.id + folderTone}
+                      label={siblingStream1.shortLabel}
+                      meta={`${siblingStream1.courses.length} Degrees`}
+                      tone={folderTone}
+                      art={siblingStream1.artPreset || 'dusk'}
+                      image={siblingStream1.image}
+                      seed={siblingStream1.id.length * 17 + 5}
+                      width={330}
+                      defaultOpen={false}
+                      action="more"
+                      menu={[
+                        {
+                          label: `Explore ${siblingStream1.shortLabel}`,
+                          onSelect: () => setActiveStreamId(siblingStream1.id),
+                        },
+                        {
+                          label: 'Ask More Info',
+                          onSelect: () => openCourseEnquiry(siblingStream1.label, siblingStream1.label),
+                        },
+                      ]}
+                      files={siblingStream1.courses.slice(0, 4).map((c, idx) => ({
+                        name: c.name,
+                        meta: `${c.degree} · ${c.duration}`,
+                        art: (['verdant', 'glacier', 'ember', 'aurora'] as ArtPreset[])[idx % 4],
+                      }))}
+                      onFileSelect={(file) => handleSelectCourseFile(file, siblingStream1)}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setActiveStreamId(siblingStream1.id)}
+                      className="mt-4 text-xs font-mono text-primary hover:underline cursor-pointer"
+                    >
+                      Switch to {siblingStream1.shortLabel} →
+                    </button>
+                  </div>
+                )
+              })()}
+
+              {/* Sibling Featured Stream 2 */}
+              {(() => {
+                const siblingStream2 =
+                  STREAMS_DATA[(STREAMS_DATA.findIndex((s) => s.id === activeStreamId) + 2) % STREAMS_DATA.length]
+                return (
+                  <div className="hidden xl:flex flex-col items-center">
+                    <GlassFolder
+                      key={siblingStream2.id + folderTone}
+                      label={siblingStream2.shortLabel}
+                      meta={`${siblingStream2.courses.length} Degrees`}
+                      tone={folderTone}
+                      art={siblingStream2.artPreset || 'glacier'}
+                      image={siblingStream2.image}
+                      seed={siblingStream2.id.length * 23 + 9}
+                      width={330}
+                      defaultOpen={false}
+                      action="more"
+                      menu={[
+                        {
+                          label: `Explore ${siblingStream2.shortLabel}`,
+                          onSelect: () => setActiveStreamId(siblingStream2.id),
+                        },
+                        {
+                          label: 'Ask More Info',
+                          onSelect: () => openCourseEnquiry(siblingStream2.label, siblingStream2.label),
+                        },
+                      ]}
+                      files={siblingStream2.courses.slice(0, 4).map((c, idx) => ({
+                        name: c.name,
+                        meta: `${c.degree} · ${c.duration}`,
+                        art: (['dusk', 'ember', 'aurora', 'verdant'] as ArtPreset[])[idx % 4],
+                      }))}
+                      onFileSelect={(file) => handleSelectCourseFile(file, siblingStream2)}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setActiveStreamId(siblingStream2.id)}
+                      className="mt-4 text-xs font-mono text-primary hover:underline cursor-pointer"
+                    >
+                      Switch to {siblingStream2.shortLabel} →
+                    </button>
+                  </div>
+                )
+              })()}
+            </div>
+          </div>
+        )}
+
+        {/* ------------------------------------------------------------- */}
+        {/* 02. DETAILED COURSES CARDS GRID                               */}
+        {/* ------------------------------------------------------------- */}
+        {(viewMode === 'both' || viewMode === 'grid' || searchQuery) && (
+          <div className="mt-8">
+            <div className="flex items-center justify-between mb-6">
+              <span className="text-xs font-mono text-muted-foreground uppercase tracking-wider">
+                Showing {displayedCourses.length} Detailed Course Cards
+              </span>
+              <span className="text-xs font-mono text-[#00C2FF]">
+                Verified Bangalore Directory
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+              {displayedCourses.map((course) => (
+                <div
+                  key={course.id}
+                  onClick={() => handleOpenInfo(course)}
+                  className="group relative rounded-2xl border border-border bg-card p-6 flex flex-col justify-between transition-all duration-300 hover:border-primary/60 hover:shadow-[0_12px_36px_rgba(0,194,255,0.12)] cursor-pointer overflow-hidden text-card-foreground"
+                >
+                  <div>
+                    {/* Degree & Duration Header */}
+                    <div className="flex items-center justify-between text-xs font-mono">
+                      <span className="px-2.5 py-1 rounded-full bg-primary/10 text-primary border border-primary/20 font-medium">
+                        {course.degree}
+                      </span>
+                      <span className="flex items-center gap-1 text-muted-foreground">
+                        <Clock className="size-3" />
+                        <span>{course.duration}</span>
+                      </span>
+                    </div>
+
+                    {/* Course Name */}
+                    <h3 className="mt-4 font-heading text-lg font-normal text-foreground group-hover:text-primary transition-colors leading-snug">
+                      {course.name}
+                    </h3>
+
+                    {/* Description */}
+                    <p className="mt-2 text-xs sm:text-[13px] text-muted-foreground font-light leading-relaxed line-clamp-3">
+                      {course.description}
+                    </p>
+
+                    {/* Top Colleges snippet */}
+                    <div className="mt-4 pt-3 border-t border-border">
+                      <span className="text-[11px] font-mono text-muted-foreground block mb-1 flex items-center gap-1.5">
+                        <Building2 className="size-3 text-[#00C2FF]" />
+                        <span>Premier Colleges:</span>
+                      </span>
+                      <p className="text-xs text-foreground/80 line-clamp-1 font-light">
+                        {course.topColleges.slice(0, 3).join(', ')}
+                        {course.topColleges.length > 3 ? '...' : ''}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Default Footer & HOVER ACTION BUTTONS */}
+                  <div className="mt-5 pt-3 border-t border-border relative">
+                    {/* Default resting state */}
+                    <div className="flex items-center justify-between text-xs text-muted-foreground group-hover:opacity-0 transition-opacity">
+                      <span className="font-mono text-[11px] text-[#00C2FF]">
+                        Tap for Syllabus &amp; Fees
+                      </span>
+                      <ArrowRight className="size-3.5 text-muted-foreground" />
+                    </div>
+
+                    {/* Hover Reveal: "Ask More Info" & "Get Admission" */}
+                    <div className="absolute inset-x-0 bottom-0 top-2 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          openCourseEnquiry(course.name, activeStream.label)
+                        }}
+                        className="flex-1 inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl text-xs font-medium text-foreground bg-secondary hover:bg-secondary/80 border border-border transition-all cursor-pointer"
+                      >
+                        <MessageCircle className="size-3.5 text-primary" />
+                        <span>Ask More Info</span>
+                      </button>
+
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          handleGetAdmission(course.name)
+                        }}
+                        className="flex-1 inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl text-xs font-semibold text-white bg-primary hover:bg-violet-hover shadow-[0_0_15px_rgba(128,82,255,0.4)] transition-all cursor-pointer"
+                      >
+                        <GraduationCap className="size-3.5" />
+                        <span>Get Admission</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
         {displayedCourses.length === 0 && (
-          <div className="mt-12 text-center py-12 border border-white/10 rounded-2xl bg-[#070e17]/50">
-            <p className="text-slate-300 text-base">
+          <div className="mt-12 text-center py-12 border border-border rounded-2xl bg-card">
+            <p className="text-foreground text-base">
               No specific courses found for &quot;{searchQuery}&quot;.
             </p>
-            <p className="text-xs text-slate-500 mt-1">
+            <p className="text-xs text-muted-foreground mt-1">
               Contact our academic team at +91 77953 54043 for customized course mapping.
             </p>
           </div>
         )}
       </div>
 
-      {/* Course Detailed Overview Modal */}
+      {/* ------------------------------------------------------------- */}
+      {/* COURSE DETAILED OVERVIEW MODAL                                */}
+      {/* ------------------------------------------------------------- */}
       {selectedCourse && (
         <div
           role="dialog"
           aria-modal="true"
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-md animate-in fade-in duration-200"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/75 backdrop-blur-md animate-in fade-in duration-200"
         >
-          <div className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-3xl border border-white/15 bg-[#070e17] p-6 sm:p-8 shadow-[0_25px_60px_rgba(0,0,0,0.9)] text-white">
+          <div className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-3xl border border-border bg-card p-6 sm:p-8 shadow-[0_25px_60px_rgba(0,0,0,0.5)] text-card-foreground my-auto [scrollbar-width:thin]">
             {/* Close Button */}
             <button
               onClick={() => setSelectedCourse(null)}
-              className="absolute top-5 right-5 p-2 rounded-full border border-white/10 bg-white/5 text-slate-400 hover:text-white hover:bg-white/10 transition-colors"
+              className="absolute top-5 right-5 p-2 rounded-full border border-border bg-card/60 text-muted-foreground hover:text-foreground hover:bg-card transition-colors cursor-pointer"
               aria-label="Close modal"
             >
               <X className="size-5" />
@@ -824,41 +1073,41 @@ export function CoursesDirectory() {
             {/* Modal Header */}
             <div>
               <div className="flex items-center gap-2 mb-2">
-                <span className="px-3 py-1 rounded-full text-xs font-mono font-medium text-[#00C2FF] bg-[#00C2FF]/10 border border-[#00C2FF]/20">
+                <span className="px-3 py-1 rounded-full text-xs font-mono font-medium text-primary bg-primary/10 border border-primary/20">
                   {selectedCourse.degree} · {selectedCourse.duration}
                 </span>
-                <span className="text-xs text-slate-400 font-mono">
+                <span className="text-xs text-muted-foreground font-mono">
                   Official Bangalore Directory
                 </span>
               </div>
-              <h3 className="font-heading text-2xl sm:text-3xl text-white font-normal leading-tight">
+              <h3 className="font-heading text-2xl sm:text-3xl text-foreground font-normal leading-tight">
                 {selectedCourse.name}
               </h3>
-              <p className="mt-3 text-sm text-slate-300 font-light leading-relaxed">
+              <p className="mt-3 text-sm text-muted-foreground font-light leading-relaxed">
                 {selectedCourse.description}
               </p>
             </div>
 
             {/* Eligibility & Entrance Exams */}
             <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="p-4 rounded-2xl border border-white/[0.08] bg-white/[0.02]">
-                <span className="text-[11px] font-mono text-[#56D8E7] uppercase tracking-wider block mb-1">
+              <div className="p-4 rounded-2xl border border-border bg-secondary/40">
+                <span className="text-[11px] font-mono text-[#00C2FF] uppercase tracking-wider block mb-1 font-medium">
                   Eligibility Criteria
                 </span>
-                <p className="text-xs sm:text-sm text-slate-200 font-light leading-snug">
+                <p className="text-xs sm:text-sm text-foreground/90 font-light leading-snug">
                   {selectedCourse.eligibility}
                 </p>
               </div>
 
-              <div className="p-4 rounded-2xl border border-white/[0.08] bg-white/[0.02]">
-                <span className="text-[11px] font-mono text-[#56D8E7] uppercase tracking-wider block mb-1">
+              <div className="p-4 rounded-2xl border border-border bg-secondary/40">
+                <span className="text-[11px] font-mono text-[#00C2FF] uppercase tracking-wider block mb-1 font-medium">
                   Entrance &amp; Admission Routes
                 </span>
                 <div className="flex flex-wrap gap-1.5 mt-1">
                   {selectedCourse.entrances.map((e) => (
                     <span
                       key={e}
-                      className="px-2 py-0.5 rounded text-[11px] font-mono bg-white/5 border border-white/10 text-slate-300"
+                      className="px-2 py-0.5 rounded text-[11px] font-mono bg-card border border-border text-foreground"
                     >
                       {e}
                     </span>
@@ -869,7 +1118,7 @@ export function CoursesDirectory() {
 
             {/* Top Colleges in Bangalore */}
             <div className="mt-6">
-              <span className="text-xs font-mono text-[#00C2FF] uppercase tracking-wider block mb-2 flex items-center gap-1.5">
+              <span className="text-xs font-mono text-[#00C2FF] uppercase tracking-wider block mb-2 flex items-center gap-1.5 font-medium">
                 <Building2 className="size-3.5" />
                 <span>Premier Colleges in Bangalore Mapped in Directory:</span>
               </span>
@@ -877,7 +1126,7 @@ export function CoursesDirectory() {
                 {selectedCourse.topColleges.map((college) => (
                   <div
                     key={college}
-                    className="flex items-center gap-2 p-2.5 rounded-xl border border-white/[0.06] bg-black/40 text-xs text-slate-200"
+                    className="flex items-center gap-2 p-2.5 rounded-xl border border-border bg-secondary/30 text-xs text-foreground"
                   >
                     <CheckCircle2 className="size-3.5 text-[#00C2FF] shrink-0" />
                     <span className="truncate">{college}</span>
@@ -888,7 +1137,7 @@ export function CoursesDirectory() {
 
             {/* Career Outcomes */}
             <div className="mt-6">
-              <span className="text-xs font-mono text-[#FFD166] uppercase tracking-wider block mb-2 flex items-center gap-1.5">
+              <span className="text-xs font-mono text-amber uppercase tracking-wider block mb-2 flex items-center gap-1.5 font-medium">
                 <Sparkles className="size-3.5" />
                 <span>Expected High-Growth Career Roles:</span>
               </span>
@@ -896,7 +1145,7 @@ export function CoursesDirectory() {
                 {selectedCourse.careerRoles.map((role) => (
                   <span
                     key={role}
-                    className="px-3 py-1 rounded-full text-xs bg-[#FFD166]/10 border border-[#FFD166]/20 text-[#FFD166]"
+                    className="px-3 py-1 rounded-full text-xs bg-amber/10 border border-amber/30 text-foreground font-medium"
                   >
                     {role}
                   </span>
@@ -905,25 +1154,36 @@ export function CoursesDirectory() {
             </div>
 
             {/* Action Bar */}
-            <div className="mt-8 pt-5 border-t border-white/10 flex flex-col sm:flex-row items-center gap-3">
+            <div className="mt-8 pt-5 border-t border-border flex flex-col sm:flex-row items-center gap-3">
+              {/* Ask More Info (Triggers Enquiry Form with course pre-selected) */}
+              <button
+                onClick={() => {
+                  const courseName = selectedCourse.name
+                  setSelectedCourse(null)
+                  openCourseEnquiry(courseName, activeStream.label)
+                }}
+                className="w-full sm:flex-1 inline-flex items-center justify-center gap-2 py-3.5 px-6 rounded-2xl text-sm font-semibold text-white bg-primary hover:bg-violet-hover transition-all shadow-[0_0_25px_rgba(128,82,255,0.4)] cursor-pointer"
+              >
+                <MessageCircle className="size-4" />
+                <span>Ask More Info / Contact Us</span>
+              </button>
+
+              {/* Get Admission Assistance */}
               <button
                 onClick={() => handleGetAdmission(selectedCourse.name)}
-                className="w-full sm:flex-1 inline-flex items-center justify-center gap-2 py-3.5 px-6 rounded-2xl text-sm font-semibold text-black bg-[#00C2FF] hover:bg-[#56D8E7] transition-all shadow-[0_0_25px_rgba(0,194,255,0.4)]"
+                className="w-full sm:flex-1 inline-flex items-center justify-center gap-2 py-3.5 px-6 rounded-2xl text-sm font-semibold text-black bg-[#00C2FF] hover:bg-[#56D8E7] transition-all shadow-[0_0_25px_rgba(0,194,255,0.4)] cursor-pointer"
               >
                 <GraduationCap className="size-4" />
                 <span>Get Admission Assistance</span>
               </button>
 
+              {/* Direct Phone Call */}
               <a
-                href={`https://wa.me/917795354043?text=${encodeURIComponent(
-                  `Hi Education to Career Bridge, I want details regarding fees, seat matrix and admission for ${selectedCourse.name}.`
-                )}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 py-3.5 px-6 rounded-2xl text-sm font-medium text-white border border-white/20 bg-white/5 hover:bg-white/10 transition-all"
+                href="tel:+917795354043"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 py-3.5 px-5 rounded-2xl text-sm font-medium text-foreground border border-border bg-card hover:bg-muted transition-all"
               >
-                <MessageCircle className="size-4 text-[#56D8E7]" />
-                <span>WhatsApp Founder (+91 77953 54043)</span>
+                <PhoneCall className="size-4 text-[#00C2FF]" />
+                <span>Call Us</span>
               </a>
             </div>
           </div>
