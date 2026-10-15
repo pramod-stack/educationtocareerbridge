@@ -2,8 +2,7 @@
 
 import React from 'react'
 import Image from 'next/image'
-import { ArrowRight, MessageCircle, ShieldCheck, Sparkles, Star } from 'lucide-react'
-import GatewayFlow from '@/components/ui/gateway-flow'
+import { ArrowRight, MessageCircle, ShieldCheck, Sparkles, Star, CheckCircle2, GraduationCap, Building2 } from 'lucide-react'
 import { StatCounters } from '@/components/site/stat-counters'
 import { FadeUp } from '@/components/ui/motion-text'
 
@@ -29,144 +28,213 @@ export function Hero() {
     <section
       id="top"
       aria-label="Education to Career Bridge Hero"
-      className="relative w-full overflow-hidden bg-black min-h-[92vh] flex flex-col justify-between pt-32 sm:pt-40 lg:pt-44 pb-16 sm:pb-24 border-b border-white/[0.08]"
+      className="relative w-full overflow-hidden bg-black min-h-[92vh] flex flex-col justify-between pt-28 sm:pt-36 lg:pt-40 pb-16 sm:pb-20 border-b border-white/[0.08]"
     >
-      {/* 01. GatewayFlow Full-Width Absolute Background Animation */}
+      {/* Background Subtle Gradient Illumination */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 z-0 overflow-hidden pointer-events-none select-none"
-      >
-        <GatewayFlow
-          mode="dark"
-          speed={0.9}
-          density={1.3}
-          size={1.15}
-          opacity={1}
-          className="h-full w-full pointer-events-none"
-        />
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_15%,rgba(0,194,255,0.08),transparent_75%)]"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -top-40 right-10 w-96 h-96 rounded-full bg-[#8052FF]/10 blur-3xl"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute bottom-10 left-10 w-80 h-80 rounded-full bg-[#00C2FF]/10 blur-3xl"
+      />
 
-        {/* Lightweight subtle gradient overlays so the flow fills and illuminates the whole hero */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/60 pointer-events-none" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(10,22,36,0.5)_0%,transparent_75%)] pointer-events-none" />
-      </div>
-
-      {/* 02. Foreground Interactive Hero Content */}
-      <div className="relative z-10 mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 w-full flex-1 flex flex-col justify-center">
-        <div className="flex flex-col items-center text-center gap-6 sm:gap-8 mx-auto max-w-4xl">
-          {/* Eyebrow Pill */}
-          <FadeUp delay={0.05}>
-            <span className="inline-flex items-center gap-2 rounded-full border border-[#00C2FF]/30 bg-black/70 backdrop-blur-md px-4 py-1.5 text-[11px] sm:text-[12px] font-mono tracking-[0.2em] text-[#56D8E7] uppercase shadow-[0_0_24px_rgba(0,194,255,0.2)]">
-              <Sparkles className="size-3 text-[#56D8E7]" aria-hidden="true" />
-              GUIDE · SUPPORT · EMPOWER
-            </span>
-          </FadeUp>
-
-          {/* Main Headline & Highlighted Statement */}
-          <div className="space-y-3">
-            <FadeUp delay={0.15}>
-              <h1 className="font-heading text-4xl sm:text-6xl md:text-7xl lg:text-[5.2rem] font-normal tracking-[-0.035em] text-white leading-[1.04]">
-                From Education to Opportunity.
-              </h1>
+      {/* Main Container */}
+      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 w-full flex-1 flex flex-col justify-center">
+        {/* 2-Column Hero: Left Typography & Actions, Right Neat Photo Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+          {/* Left Column: Headlines & Call to Actions (7 Cols) */}
+          <div className="lg:col-span-7 flex flex-col items-start text-left gap-6">
+            {/* Eyebrow Badge */}
+            <FadeUp delay={0.05}>
+              <span className="inline-flex items-center gap-2 rounded-full border border-[#00C2FF]/30 bg-[#070e17]/80 backdrop-blur-md px-4 py-1.5 text-[11px] sm:text-[12px] font-mono tracking-[0.2em] text-[#56D8E7] uppercase shadow-[0_0_20px_rgba(0,194,255,0.15)]">
+                <Sparkles className="size-3 text-[#56D8E7]" aria-hidden="true" />
+                GUIDE · SUPPORT · EMPOWER · BENGALURU
+              </span>
             </FadeUp>
 
-            <FadeUp delay={0.25}>
-              <p className="font-heading text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light tracking-[-0.03em] leading-snug">
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-[#56D8E7] to-[#00C2FF] drop-shadow-[0_0_30px_rgba(86,216,231,0.35)]">
-                  Your Future Starts With the Right Guidance.
-                </span>
+            {/* Main Headlines */}
+            <div className="space-y-3">
+              <FadeUp delay={0.15}>
+                <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-[4rem] font-normal tracking-[-0.035em] text-white leading-[1.06]">
+                  From Education to Opportunity.
+                </h1>
+              </FadeUp>
+
+              <FadeUp delay={0.25}>
+                <p className="font-heading text-2xl sm:text-3xl md:text-4xl font-light tracking-[-0.03em] leading-snug">
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-[#56D8E7] to-[#00C2FF]">
+                    Your Future Starts With the Right Guidance.
+                  </span>
+                </p>
+              </FadeUp>
+            </div>
+
+            {/* Supporting Paragraph */}
+            <FadeUp delay={0.35}>
+              <p className="text-[16px] sm:text-[18px] leading-relaxed text-[#CBD5E1] font-light max-w-2xl">
+                Choosing the right course, finding the right college, settling into a new city or
+                preparing for your career — we&apos;re here to help you navigate every next step with
+                greater confidence and zero commission bias.
               </p>
+            </FadeUp>
+
+            {/* CTA Action Buttons */}
+            <FadeUp delay={0.45} className="w-full">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-2">
+                {/* Primary CTA: Explore Courses */}
+                <a
+                  href="#courses-directory"
+                  className="group relative inline-flex items-center justify-center gap-2.5 rounded-full bg-gradient-to-r from-[#0F9F9A] via-[#00C2FF] to-[#56D8E7] px-8 py-3.5 text-[15px] font-semibold text-black shadow-[0_0_35px_rgba(0,194,255,0.35)] transition-all duration-300 hover:shadow-[0_0_50px_rgba(0,194,255,0.65)] hover:scale-[1.02] active:scale-100 outline-none"
+                >
+                  <GraduationCap className="size-4" />
+                  <span>Explore Courses & Colleges</span>
+                  <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
+                </a>
+
+                {/* Secondary CTA: WhatsApp Direct */}
+                <a
+                  href={whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-white/[0.04] backdrop-blur-md px-7 py-3.5 text-[15px] font-medium text-white transition-all duration-300 hover:border-[#56D8E7] hover:bg-[#56D8E7]/10 outline-none"
+                  title="Chat with our education counselling team on WhatsApp"
+                >
+                  <MessageCircle className="size-4 text-[#56D8E7]" />
+                  <span>WhatsApp Our Team</span>
+                </a>
+              </div>
+            </FadeUp>
+
+            {/* Supporting Services Strip */}
+            <FadeUp delay={0.55}>
+              <div className="pt-2 flex flex-wrap items-center gap-x-3 gap-y-2 text-xs sm:text-[13px] text-[#94A3B8] font-mono">
+                {supportingServices.map((service, idx) => (
+                  <React.Fragment key={service}>
+                    <span className="hover:text-white transition-colors">{service}</span>
+                    {idx < supportingServices.length - 1 && (
+                      <span className="text-[#00C2FF]/40" aria-hidden="true">
+                        ·
+                      </span>
+                    )}
+                  </React.Fragment>
+                ))}
+              </div>
+            </FadeUp>
+
+            {/* Trust Points */}
+            <FadeUp delay={0.65}>
+              <div className="pt-2 flex flex-wrap items-center gap-x-6 gap-y-2 text-xs sm:text-sm text-[#E2E8F0] font-light">
+                {trustPoints.map((point) => (
+                  <span key={point} className="flex items-center gap-1.5">
+                    <CheckCircle2 className="size-4 text-[#00C2FF]" />
+                    <span>{point}</span>
+                  </span>
+                ))}
+              </div>
             </FadeUp>
           </div>
 
-          {/* Supporting Paragraph */}
-          <FadeUp delay={0.35}>
-            <p className="text-[16px] sm:text-[19px] leading-relaxed text-[#CBD5E1] font-normal max-w-2xl mx-auto drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]">
-              Choosing the right course, finding the right college, settling into a new city or
-              preparing for your career — we&apos;re here to help you navigate every next step with
-              greater confidence.
-            </p>
-          </FadeUp>
-
-          {/* CTA Action Buttons */}
-          <FadeUp delay={0.45} className="w-full">
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
-              {/* Primary CTA: Electric Cyan Pill with Restrained Glow */}
-              <a
-                href="#services"
-                className="group relative inline-flex items-center justify-center gap-2.5 rounded-full bg-gradient-to-r from-[#0F9F9A] via-[#00C2FF] to-[#56D8E7] px-8 py-3.5 text-[15px] font-semibold text-black shadow-[0_0_35px_rgba(0,194,255,0.45)] transition-all duration-300 hover:shadow-[0_0_50px_rgba(0,194,255,0.75)] hover:scale-[1.02] active:scale-100 outline-none focus-visible:ring-2 focus-visible:ring-[#56D8E7]"
-              >
-                <span>Explore Your Future</span>
-                <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
-              </a>
-
-              {/* Secondary CTA: Talk to Our Team (WhatsApp Direct) */}
-              <a
-                href={whatsappUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/25 bg-black/70 backdrop-blur-md px-7 py-3.5 text-[15px] font-medium text-white transition-all duration-300 hover:border-[#56D8E7] hover:bg-[#56D8E7]/10 hover:text-white outline-none focus-visible:ring-2 focus-visible:ring-[#56D8E7]"
-                title="Chat with our education counselling team on WhatsApp"
-              >
-                <MessageCircle className="size-4 text-[#56D8E7]" />
-                <span>Talk to Our Team</span>
-              </a>
-            </div>
-          </FadeUp>
-
-          {/* Supporting Services Strip */}
-          <FadeUp delay={0.55}>
-            <div className="pt-4 flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-xs sm:text-[13px] text-[#94A3B8] font-mono tracking-wide">
-              {supportingServices.map((service, idx) => (
-                <React.Fragment key={service}>
-                  <span className="hover:text-white transition-colors">{service}</span>
-                  {idx < supportingServices.length - 1 && (
-                    <span className="text-[#00C2FF]/40" aria-hidden="true">
-                      ·
+          {/* Right Column: Neat Photo Grid (5 Cols) */}
+          <div className="lg:col-span-5 relative w-full">
+            <FadeUp delay={0.25}>
+              <div className="relative grid grid-cols-2 gap-3 sm:gap-4 p-2 sm:p-3 rounded-3xl border border-white/10 bg-[#070e17]/60 backdrop-blur-md shadow-[0_20px_50px_rgba(0,0,0,0.8)]">
+                {/* Photo 1: Graduating Convocation Students */}
+                <div className="relative group overflow-hidden rounded-2xl h-48 sm:h-56 bg-slate-900 border border-white/[0.08]">
+                  <Image
+                    src="/images/whatsapp/campus_4.jpeg"
+                    alt="Graduating convocation students in Bangalore"
+                    fill
+                    sizes="(max-width: 768px) 50vw, 25vw"
+                    className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                    priority
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                  <div className="absolute bottom-2.5 left-2.5 right-2.5">
+                    <span className="inline-block px-2 py-0.5 rounded-full text-[10px] font-mono font-medium text-[#56D8E7] bg-black/70 border border-white/10 backdrop-blur-sm">
+                      🎓 Convocation
                     </span>
-                  )}
-                </React.Fragment>
-              ))}
-            </div>
-          </FadeUp>
-
-          {/* Social Proof & Trust Proof Pill */}
-          <FadeUp delay={0.65} className="w-full">
-            <div className="mt-4 border-t border-white/15 bg-black/60 backdrop-blur-md rounded-2xl px-6 py-4 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 mx-auto max-w-2xl shadow-[0_4px_24px_rgba(0,0,0,0.6)]">
-              <div className="flex items-center gap-2.5">
-                <div className="flex -space-x-2">
-                  {['student-1', 'student-2', 'student-3'].map((img) => (
-                    <Image
-                      key={img}
-                      src={`/images/${img}.png`}
-                      alt="Student guided by Education Bridge"
-                      width={32}
-                      height={32}
-                      className="size-8 rounded-full border-2 border-black object-cover"
-                    />
-                  ))}
-                </div>
-                <div className="flex flex-col leading-tight text-left">
-                  <div className="flex items-center gap-0.5 text-[#FFD166]">
-                    {Array.from({ length: 5 }).map((_, i) => (
-                      <Star key={i} className="size-3 fill-current" aria-hidden="true" />
-                    ))}
+                    <p className="text-white text-xs font-heading font-medium mt-1 truncate">
+                      Bangalore Degree Graduates
+                    </p>
                   </div>
-                  <span className="text-[12.5px] font-mono text-[#F1F5F9] font-medium mt-0.5">
-                    4.9/5 from 2,300+ families
+                </div>
+
+                {/* Photo 2: Medical & Science Laboratory Students */}
+                <div className="relative group overflow-hidden rounded-2xl h-48 sm:h-56 bg-slate-900 border border-white/[0.08]">
+                  <Image
+                    src="/images/whatsapp/campus_7.jpeg"
+                    alt="Medical and pharmacy students in laboratory coats"
+                    fill
+                    sizes="(max-width: 768px) 50vw, 25vw"
+                    className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                  <div className="absolute bottom-2.5 left-2.5 right-2.5">
+                    <span className="inline-block px-2 py-0.5 rounded-full text-[10px] font-mono font-medium text-[#00C2FF] bg-black/70 border border-white/10 backdrop-blur-sm">
+                      🩺 Healthcare & Labs
+                    </span>
+                    <p className="text-white text-xs font-heading font-medium mt-1 truncate">
+                      Medicine, Nursing & Pharma
+                    </p>
+                  </div>
+                </div>
+
+                {/* Photo 3: Transparent Parent Counselling Session */}
+                <div className="relative group overflow-hidden rounded-2xl h-48 sm:h-56 bg-slate-900 border border-white/[0.08]">
+                  <Image
+                    src="/images/parents-counselling.png"
+                    alt="1-on-1 parent counselling and college selection"
+                    fill
+                    sizes="(max-width: 768px) 50vw, 25vw"
+                    className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                  <div className="absolute bottom-2.5 left-2.5 right-2.5">
+                    <span className="inline-block px-2 py-0.5 rounded-full text-[10px] font-mono font-medium text-[#FFD166] bg-black/70 border border-white/10 backdrop-blur-sm">
+                      🤝 1-on-1 Mentorship
+                    </span>
+                    <p className="text-white text-xs font-heading font-medium mt-1 truncate">
+                      Transparent Parent Guidance
+                    </p>
+                  </div>
+                </div>
+
+                {/* Photo 4: Campus Basketball / Sports Life */}
+                <div className="relative group overflow-hidden rounded-2xl h-48 sm:h-56 bg-slate-900 border border-white/[0.08]">
+                  <Image
+                    src="/images/whatsapp/campus_3.jpeg"
+                    alt="Campus sports and hostel student community in Bengaluru"
+                    fill
+                    sizes="(max-width: 768px) 50vw, 25vw"
+                    className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                  <div className="absolute bottom-2.5 left-2.5 right-2.5">
+                    <span className="inline-block px-2 py-0.5 rounded-full text-[10px] font-mono font-medium text-[#8052FF] bg-black/70 border border-white/10 backdrop-blur-sm">
+                      🏀 Campus Living
+                    </span>
+                    <p className="text-white text-xs font-heading font-medium mt-1 truncate">
+                      Hostel & Safety Support
+                    </p>
+                  </div>
+                </div>
+
+                {/* Floating Central Trust Chip */}
+                <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2.5 px-4 py-2 rounded-full border border-white/15 bg-black/90 backdrop-blur-md shadow-[0_10px_25px_rgba(0,0,0,0.8)] whitespace-nowrap">
+                  <Building2 className="size-3.5 text-[#00C2FF]" />
+                  <span className="text-xs font-mono text-[#F1F5F9] font-medium">
+                    100+ Premier Bangalore Colleges
                   </span>
                 </div>
               </div>
-
-              <ul className="flex flex-wrap items-center gap-x-5 gap-y-1 text-[13px] text-[#F1F5F9] font-normal">
-                {trustPoints.map((point) => (
-                  <li key={point} className="flex items-center gap-1.5">
-                    <ShieldCheck className="size-4 text-[#0F9F9A]" />
-                    <span>{point}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </FadeUp>
+            </FadeUp>
+          </div>
         </div>
 
         {/* Minimal Stat Counters */}

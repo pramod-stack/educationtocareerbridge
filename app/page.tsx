@@ -2,8 +2,10 @@ import { SitePreloader } from '@/components/ui/site-preloader'
 import { SiteHeader } from '@/components/site/site-header'
 import { Hero } from '@/components/site/hero'
 import { EducationCareerMarquee } from '@/components/ui/education-career-marquee'
+import { CoursesDirectory } from '@/components/site/courses-directory'
 import { Confusion } from '@/components/site/confusion'
 import { JourneyTimeline } from '@/components/site/journey-timeline'
+import { StudentEnquiryModal } from '@/components/site/student-enquiry-modal'
 import { Process } from '@/components/site/process'
 import { CareerSimulator } from '@/components/site/career-simulator'
 import { CollegeCompare } from '@/components/site/college-compare'
@@ -26,20 +28,26 @@ export default function HomePage() {
       {/* Ambient Mouse Tracking Aura */}
       <AmbientGlow />
 
+      {/* Scroll-triggered Student Enquiry Form (pops up after 4th section) */}
+      <StudentEnquiryModal />
+
       {/* Floating Header */}
       <SiteHeader />
 
       <main className="flex-1">
-        {/* 01. Hero & Career Editorial Display */}
+        {/* 01. Hero & Real Photo Grid Display */}
         <Hero />
 
-        {/* 02. The Signature 21st.dev 3-Row Question Marquee & Feature Grid */}
+        {/* 02. The Signature 21st.dev 3-Row Question Marquee & One Partner Timeline */}
         <EducationCareerMarquee />
 
-        {/* 03. The Real Problem: Why Students Feel Lost */}
+        {/* 03. Comprehensive Bangalore Higher Education Directory (100+ Courses & Colleges) */}
+        <CoursesDirectory />
+
+        {/* 04. The Real Problem: Why Students Feel Lost */}
         <Confusion />
 
-        {/* 04. Education Bridge 11-Stage Interactive Career Journey */}
+        {/* 05. Education Bridge 11-Stage Interactive Career Journey */}
         <JourneyTimeline />
 
         {/* 05. How Education Bridge Works: Six-Chapter Methodology */}

@@ -7,6 +7,7 @@ import { cn } from '@/lib/utils'
 
 const links = [
   { href: '/about', label: 'About' },
+  { href: '/#courses-directory', label: 'Courses & Degrees' },
   { href: '/services', label: 'Services' },
   { href: '/colleges', label: 'Colleges' },
   { href: '/careers', label: 'Careers' },
