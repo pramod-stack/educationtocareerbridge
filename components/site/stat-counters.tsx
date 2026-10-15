@@ -64,12 +64,12 @@ function StatItem({ stat, active }: { stat: Stat; active: boolean }) {
   const value = useCountUp(stat.value, active)
   return (
     <div className="flex flex-col gap-1.5 py-6 px-4 sm:px-8">
-      <dd className="font-heading text-3xl sm:text-4xl lg:text-5xl font-normal tracking-tight text-white">
+      <dd className="font-heading text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-foreground">
         {format(value)}
         <span className="text-[#8052FF] ml-0.5">{stat.suffix}</span>
       </dd>
-      <dt className="text-sm font-medium text-white">{stat.label}</dt>
-      <p className="text-xs text-[#E2E8F0] font-normal">{stat.sublabel}</p>
+      <dt className="text-sm font-semibold text-foreground/90">{stat.label}</dt>
+      <p className="text-xs text-muted-foreground font-normal">{stat.sublabel}</p>
     </div>
   )
 }
@@ -81,6 +81,14 @@ export function StatCounters() {
   useEffect(() => {
     const node = ref.current
     if (!node) return
+
+    // Immediately trigger if already in viewport
+    const rect = node.getBoundingClientRect()
+    if (rect.top < window.innerHeight && rect.bottom > 0) {
+      setActive(true)
+      return
+    }
+
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries.some((e) => e.isIntersecting)) {
@@ -88,7 +96,7 @@ export function StatCounters() {
           observer.disconnect()
         }
       },
-      { threshold: 0.2 }
+      { threshold: 0.1 }
     )
     observer.observe(node)
     return () => observer.disconnect()
@@ -97,7 +105,7 @@ export function StatCounters() {
   return (
     <dl
       ref={ref}
-      className="grid grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-white/[0.08] border-y border-white/[0.08] bg-white/[0.015]"
+      className="grid grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-border border-y border-border bg-card/60 backdrop-blur-sm"
     >
       {stats.map((stat) => (
         <StatItem key={stat.label} stat={stat} active={active} />

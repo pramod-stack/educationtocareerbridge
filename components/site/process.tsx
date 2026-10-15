@@ -104,7 +104,7 @@ export function Process() {
   const current = chapters[activeTab]
 
   return (
-    <section id="how-it-works" className="bg-black py-28 sm:py-36 border-b border-white/[0.08]">
+    <section id="how-it-works" className="bg-background text-foreground py-28 sm:py-36 border-b border-border transition-colors duration-300">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Editorial Section Header */}
         <div className="max-w-3xl">
@@ -118,15 +118,15 @@ export function Process() {
           <SplitLineReveal
             lines={[
               'A six-stage method.',
-              <span key="not-call" className="text-[#9A9A9A]">Not a casual phone call.</span>,
+              <span key="not-call" className="text-muted-foreground">Not a casual phone call.</span>,
             ]}
-            className="mt-4 font-heading text-4xl sm:text-5xl lg:text-6xl font-normal tracking-[-0.04em] text-white leading-[1.05]"
+            className="mt-4 font-heading text-4xl sm:text-5xl lg:text-6xl font-normal tracking-[-0.04em] text-foreground leading-[1.05]"
             lineClassName="leading-[1.05]"
             stagger={0.08}
           />
 
           <FadeUp delay={0.25}>
-            <p className="mt-5 text-[17px] text-[#9A9A9A] leading-relaxed font-light">
+            <p className="mt-5 text-[17px] text-muted-foreground leading-relaxed font-light">
               Every student receives the same disciplined, architected methodology.
               The difference is the unique personal trajectory that emerges from it.
             </p>
@@ -136,7 +136,7 @@ export function Process() {
         {/* Chapter Selection Strip */}
         <div className="mt-16">
           <DrawLine />
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 divide-y sm:divide-y-0 sm:divide-x divide-white/[0.08]">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 divide-y sm:divide-y-0 sm:divide-x divide-border">
             {chapters.map((chapter, idx) => {
               const isActive = idx === activeTab
               return (
@@ -146,13 +146,13 @@ export function Process() {
                   onClick={() => setActiveTab(idx)}
                   className={cn(
                     'group py-6 px-4 text-left transition-all duration-300 outline-none focus-visible:ring-1 focus-visible:ring-[#8052FF]',
-                    isActive ? 'bg-white/[0.04]' : 'hover:bg-white/[0.015]'
+                    isActive ? 'bg-accent' : 'hover:bg-muted/40'
                   )}
                 >
                   <span
                     className={cn(
                       'font-heading text-3xl font-light tracking-tight transition-colors',
-                      isActive ? 'text-[#8052FF]' : 'text-white/30 group-hover:text-white/60'
+                      isActive ? 'text-[#8052FF]' : 'text-muted-foreground/40 group-hover:text-muted-foreground'
                     )}
                   >
                     {chapter.num}
@@ -160,7 +160,7 @@ export function Process() {
                   <h3
                     className={cn(
                       'mt-2 text-sm font-normal tracking-tight line-clamp-1 transition-colors',
-                      isActive ? 'text-white' : 'text-[#9A9A9A] group-hover:text-white'
+                      isActive ? 'text-foreground font-semibold' : 'text-muted-foreground group-hover:text-foreground'
                     )}
                   >
                     {chapter.title}
@@ -187,20 +187,20 @@ export function Process() {
               <span className="font-heading text-7xl sm:text-8xl lg:text-9xl font-light text-[#8052FF]/30 select-none block leading-none">
                 {current.num}
               </span>
-              <h3 className="mt-4 font-heading text-3xl sm:text-4xl font-normal text-white">
+              <h3 className="mt-4 font-heading text-3xl sm:text-4xl font-semibold text-foreground">
                 {current.title}
               </h3>
-              <p className="mt-2 text-base text-[#FFB829] font-normal">
+              <p className="mt-2 text-base text-[#d97706] dark:text-[#FFB829] font-medium">
                 {current.tagline}
               </p>
-              <p className="mt-6 text-[16px] leading-relaxed text-[#9A9A9A] font-light max-w-md">
+              <p className="mt-6 text-[16px] leading-relaxed text-muted-foreground font-normal max-w-md">
                 {current.overview}
               </p>
             </div>
 
             {/* Chapter Specific Points */}
-            <div className="rounded-3xl border border-white/[0.08] bg-white/[0.015] p-8 sm:p-10">
-              <h4 className="text-xs font-mono tracking-[0.2em] text-[#9A9A9A] uppercase mb-6">
+            <div className="rounded-3xl border border-border bg-card shadow-sm p-8 sm:p-10">
+              <h4 className="text-xs font-mono tracking-[0.2em] text-muted-foreground uppercase mb-6">
                 Core Actions in Phase {current.num}
               </h4>
 
@@ -210,7 +210,7 @@ export function Process() {
                     <div className="size-5 rounded-full bg-[#8052FF]/10 border border-[#8052FF]/30 flex items-center justify-center shrink-0 mt-0.5">
                       <Check className="size-3 text-[#8052FF]" />
                     </div>
-                    <span className="text-[14.5px] leading-relaxed text-[#BDBDBD] font-light">
+                    <span className="text-[14.5px] leading-relaxed text-foreground/90 font-normal">
                       {point}
                     </span>
                   </div>

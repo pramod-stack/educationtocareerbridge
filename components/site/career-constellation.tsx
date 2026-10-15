@@ -379,15 +379,15 @@ export function CareerConstellation() {
               <div
                 className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-[11.5px] font-mono tracking-tight backdrop-blur-sm ${
                   isViolet
-                    ? 'border border-[#8052FF]/30 bg-[#8052FF]/10 text-[#d0beff]'
+                    ? 'border border-[#8052FF]/30 bg-[#8052FF]/10 text-[#8052FF] dark:text-[#d0beff]'
                     : isAmber
-                      ? 'border border-[#FFB829]/30 bg-[#FFB829]/10 text-[#FFD066]'
-                      : 'border border-white/10 bg-white/[0.03] text-[#A0A0A0]'
+                      ? 'border border-amber-500/30 bg-amber-500/10 text-amber-700 dark:text-[#FFD066]'
+                      : 'border border-border bg-card/90 text-foreground/80 shadow-sm'
                 }`}
               >
                 <span
                   className={`size-1.5 rounded-full ${
-                    isViolet ? 'bg-[#8052FF]' : isAmber ? 'bg-[#FFB829]' : 'bg-white/40'
+                    isViolet ? 'bg-[#8052FF]' : isAmber ? 'bg-[#FFB829]' : 'bg-[#00C2FF]'
                   }`}
                 />
                 {sig.text}
@@ -398,7 +398,7 @@ export function CareerConstellation() {
       </div>
 
       {/* Subtle Bottom Caption */}
-      <div className="absolute bottom-3 left-4 sm:left-6 flex items-center gap-2 text-[11.5px] font-mono text-[#9A9A9A]/80 pointer-events-none">
+      <div className="absolute bottom-3 left-4 sm:left-6 flex items-center gap-2 text-[11.5px] font-mono text-muted-foreground pointer-events-none">
         <span className="size-2 rounded-full bg-[#8052FF] animate-pulse" />
         <span>Constellation of 200+ Live Pathways</span>
       </div>

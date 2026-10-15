@@ -57,7 +57,7 @@ export function SuccessStories() {
     setIndex((prev) => (prev + dir + stories.length) % stories.length)
 
   return (
-    <section id="stories" className="bg-black py-28 sm:py-36 border-b border-white/[0.08]">
+    <section id="stories" className="bg-background text-foreground py-28 sm:py-36 border-b border-border transition-colors duration-300">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6">
@@ -74,13 +74,13 @@ export function SuccessStories() {
                 'From confused',
                 'to placed.',
               ]}
-              className="mt-4 font-heading text-4xl sm:text-5xl lg:text-6xl font-normal tracking-[-0.04em] text-white leading-[1.05]"
+              className="mt-4 font-heading text-4xl sm:text-5xl lg:text-6xl font-normal tracking-[-0.04em] text-foreground leading-[1.05]"
               lineClassName="leading-[1.05]"
               stagger={0.08}
             />
 
             <FadeUp delay={0.2}>
-              <p className="mt-5 text-[17px] text-[#9A9A9A] leading-relaxed font-light">
+              <p className="mt-5 text-[17px] text-muted-foreground leading-relaxed font-light">
                 Real journeys told with complete honesty — including the moments that almost went off course.
               </p>
             </FadeUp>
@@ -90,7 +90,7 @@ export function SuccessStories() {
             <button
               type="button"
               onClick={() => go(-1)}
-              className="size-11 rounded-full border border-white/[0.12] bg-white/[0.02] flex items-center justify-center text-white hover:bg-white/[0.08] transition-colors"
+              className="size-11 rounded-full border border-border bg-card flex items-center justify-center text-foreground hover:bg-accent transition-colors shadow-sm"
               aria-label="Previous story"
             >
               <ArrowLeft className="size-4" />
@@ -98,7 +98,7 @@ export function SuccessStories() {
             <button
               type="button"
               onClick={() => go(1)}
-              className="size-11 rounded-full border border-white/[0.12] bg-white/[0.02] flex items-center justify-center text-white hover:bg-white/[0.08] transition-colors"
+              className="size-11 rounded-full border border-border bg-card flex items-center justify-center text-foreground hover:bg-accent transition-colors shadow-sm"
               aria-label="Next story"
             >
               <ArrowRight className="size-4" />
@@ -107,7 +107,7 @@ export function SuccessStories() {
         </div>
 
         {/* Editorial Story Layout with AnimatePresence */}
-        <div className="mt-14 overflow-hidden rounded-3xl border border-white/[0.1] bg-white/[0.015] shadow-[0_30px_90px_rgba(0,0,0,0.8)]">
+        <div className="mt-14 overflow-hidden rounded-3xl border border-border bg-card shadow-lg dark:shadow-[0_30px_90px_rgba(0,0,0,0.8)]">
           <AnimatePresence mode="wait">
             <motion.div
               key={index}
@@ -118,7 +118,7 @@ export function SuccessStories() {
               className="grid gap-0 lg:grid-cols-[0.85fr_1.15fr]"
             >
               {/* Student Dossier Column */}
-              <div className="flex flex-col justify-between gap-8 border-b lg:border-b-0 lg:border-r border-white/[0.08] p-8 sm:p-12 bg-white/[0.01]">
+              <div className="flex flex-col justify-between gap-8 border-b lg:border-b-0 lg:border-r border-border p-8 sm:p-12 bg-muted/20">
                 <div>
                   <div className="flex items-center gap-4">
                     <Image
@@ -126,13 +126,13 @@ export function SuccessStories() {
                       alt={`Portrait of ${story.name}`}
                       width={64}
                       height={64}
-                      className="size-16 rounded-full object-cover border border-white/[0.2]"
+                      className="size-16 rounded-full object-cover border border-border"
                     />
                     <div>
-                      <h3 className="font-heading text-2xl font-normal text-white">
+                      <h3 className="font-heading text-2xl font-normal text-foreground">
                         {story.name}
                       </h3>
-                      <p className="text-xs text-[#9A9A9A] font-light mt-0.5 max-w-xs">
+                      <p className="text-xs text-muted-foreground font-light mt-0.5 max-w-xs">
                         {story.from}
                       </p>
                     </div>
@@ -140,26 +140,26 @@ export function SuccessStories() {
 
                   <div className="mt-10 space-y-4">
                     <div>
-                      <span className="text-[11px] font-mono tracking-wider text-[#9A9A9A] uppercase block">
+                      <span className="text-[11px] font-mono tracking-wider text-muted-foreground uppercase block">
                         Now Working As
                       </span>
-                      <span className="font-heading text-xl font-normal text-white mt-1 block">
+                      <span className="font-heading text-xl font-normal text-foreground mt-1 block">
                         {story.role}
                       </span>
                     </div>
 
                     <div>
-                      <span className="text-[11px] font-mono tracking-wider text-[#9A9A9A] uppercase block">
+                      <span className="text-[11px] font-mono tracking-wider text-muted-foreground uppercase block">
                         Starting CTC Package
                       </span>
-                      <span className="font-heading text-3xl font-normal text-[#FFB829] mt-1 block">
+                      <span className="font-heading text-3xl font-semibold text-amber-600 dark:text-[#FFB829] mt-1 block">
                         {story.package}
                       </span>
                     </div>
                   </div>
                 </div>
 
-                <div className="pt-6 border-t border-white/[0.08] text-xs text-[#9A9A9A] flex items-center gap-2">
+                <div className="pt-6 border-t border-border text-xs text-muted-foreground flex items-center gap-2">
                   <Sparkles className="size-3.5 text-[#8052FF]" />
                   <span>Verified Education Bridge candidate record</span>
                 </div>
@@ -169,44 +169,44 @@ export function SuccessStories() {
               <div className="flex flex-col justify-between p-8 sm:p-12 gap-8">
                 <div className="space-y-6">
                   {/* Before */}
-                  <div className="p-6 rounded-2xl border border-white/[0.06] bg-black/40">
-                    <span className="text-[11px] font-mono tracking-wider text-[#9A9A9A] uppercase block mb-2">
+                  <div className="p-6 rounded-2xl border border-border bg-muted/40">
+                    <span className="text-[11px] font-mono tracking-wider text-muted-foreground uppercase block mb-2 font-medium">
                       Before Guidance · The Confusion
                     </span>
-                    <p className="text-[15px] leading-relaxed text-[#BDBDBD] font-light">
+                    <p className="text-[15px] leading-relaxed text-foreground/80 font-light">
                       {story.before}
                     </p>
                   </div>
 
                   {/* After */}
-                  <div className="p-6 rounded-2xl border border-[#8052FF]/30 bg-[#8052FF]/5">
+                  <div className="p-6 rounded-2xl border border-[#8052FF]/30 bg-[#8052FF]/5 dark:bg-[#8052FF]/10">
                     <div className="flex items-center gap-2 mb-2">
-                      <span className="text-[11px] font-mono tracking-wider text-[#a584ff] uppercase">
+                      <span className="text-[11px] font-mono tracking-wider text-[#8052FF] dark:text-[#a584ff] uppercase font-medium">
                         After Architecture · The Trajectory
                       </span>
                       <ArrowUpRight className="size-3 text-[#8052FF]" />
                     </div>
-                    <p className="text-[15px] leading-relaxed text-white font-light">
+                    <p className="text-[15px] leading-relaxed text-foreground font-normal">
                       {story.after}
                     </p>
                   </div>
                 </div>
 
                 {/* Course & College metadata */}
-                <div className="pt-6 border-t border-white/[0.08] grid grid-cols-2 gap-4">
+                <div className="pt-6 border-t border-border grid grid-cols-2 gap-4">
                   <div>
-                    <span className="text-[11px] font-mono text-[#9A9A9A] uppercase block">
+                    <span className="text-[11px] font-mono text-muted-foreground uppercase block">
                       Undergraduate Degree
                     </span>
-                    <span className="text-sm font-normal text-white mt-1 block">
+                    <span className="text-sm font-medium text-foreground mt-1 block">
                       {story.course}
                     </span>
                   </div>
                   <div>
-                    <span className="text-[11px] font-mono text-[#9A9A9A] uppercase block">
+                    <span className="text-[11px] font-mono text-muted-foreground uppercase block">
                       Institution
                     </span>
-                    <span className="text-sm font-normal text-white mt-1 block">
+                    <span className="text-sm font-medium text-foreground mt-1 block">
                       {story.college}
                     </span>
                   </div>
@@ -225,8 +225,8 @@ export function SuccessStories() {
               onClick={() => setIndex(i)}
               aria-label={`Show story of ${s.name}`}
               className={cn(
-                'h-1 rounded-full transition-all duration-300',
-                i === index ? 'w-8 bg-[#8052FF]' : 'w-4 bg-white/20 hover:bg-white/40'
+                'h-1.5 rounded-full transition-all duration-300',
+                i === index ? 'w-8 bg-[#8052FF]' : 'w-4 bg-muted-foreground/30 hover:bg-muted-foreground/60'
               )}
             />
           ))}

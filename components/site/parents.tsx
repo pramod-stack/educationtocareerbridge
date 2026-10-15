@@ -47,12 +47,12 @@ const assurances = [
 
 export function Parents() {
   return (
-    <section id="parents" className="bg-black py-28 sm:py-36 border-b border-white/[0.08]">
+    <section id="parents" className="bg-background text-foreground py-28 sm:py-36 border-b border-border transition-colors duration-300">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid gap-16 lg:grid-cols-2 lg:items-center lg:gap-20">
           {/* Left Column: Dignified Image with Zero-Commission Trust Callout */}
           <FadeUp delay={0.1} duration={0.9} className="relative">
-            <div className="overflow-hidden rounded-3xl border border-white/[0.1] bg-black shadow-[0_30px_90px_rgba(0,0,0,0.8)]">
+            <div className="overflow-hidden rounded-3xl border border-border bg-card shadow-xl">
               <Image
                 src="/images/parents-counselling.png"
                 alt="Parents and student in a career counselling session with an Education Bridge counsellor"
@@ -63,16 +63,16 @@ export function Parents() {
             </div>
 
             {/* Zero Commission Callout Badge */}
-            <div className="mt-6 rounded-2xl border border-white/[0.12] bg-white/[0.03] backdrop-blur-md p-6 sm:absolute sm:-right-6 sm:-bottom-8 sm:mt-0 sm:max-w-[280px] shadow-[0_20px_50px_rgba(0,0,0,0.8)]">
+            <div className="mt-6 rounded-2xl border border-border bg-card/95 backdrop-blur-md p-6 sm:absolute sm:-right-6 sm:-bottom-8 sm:mt-0 sm:max-w-[280px] shadow-xl">
               <div className="flex items-baseline gap-2">
-                <span className="font-heading text-4xl font-light text-[#FFB829]">
+                <span className="font-heading text-4xl font-semibold text-[#d97706] dark:text-[#FFB829]">
                   0
                 </span>
-                <span className="text-xs font-mono tracking-wider text-[#9A9A9A] uppercase">
+                <span className="text-xs font-mono tracking-wider text-muted-foreground uppercase font-medium">
                   Commissions
                 </span>
               </div>
-              <p className="mt-2 text-[13px] leading-relaxed text-[#BDBDBD] font-light">
+              <p className="mt-2 text-[13px] leading-relaxed text-foreground/90 font-normal">
                 Zero commissions from colleges influence our recommendation. Our advice is paid for by families, not by admission departments.
               </p>
             </div>
@@ -82,7 +82,7 @@ export function Parents() {
           <div className="flex flex-col gap-8">
             <div>
               <FadeUp delay={0}>
-                <span className="text-[12px] font-medium tracking-[0.2em] text-[#FFB829] uppercase">
+                <span className="text-[12px] font-medium tracking-[0.2em] text-[#d97706] dark:text-[#FFB829] uppercase">
                   Family Stewardship
                 </span>
               </FadeUp>
@@ -94,13 +94,13 @@ export function Parents() {
                   'matters as much',
                   'as ambition.',
                 ]}
-                className="mt-4 font-heading text-4xl sm:text-5xl lg:text-6xl font-normal tracking-[-0.04em] text-white leading-[1.05]"
+                className="mt-4 font-heading text-4xl sm:text-5xl lg:text-6xl font-normal tracking-[-0.04em] text-foreground leading-[1.05]"
                 lineClassName="leading-[1.05]"
                 stagger={0.08}
               />
 
               <FadeUp delay={0.25}>
-                <p className="mt-5 text-[17px] leading-relaxed text-[#9A9A9A] font-light">
+                <p className="mt-5 text-[17px] leading-relaxed text-muted-foreground font-light">
                   You want three fundamental things: a safe environment, honest placement figures, and an education you can afford without financial ruin.
                   We treat those as non-negotiables, and show you verified data behind every recommendation.
                 </p>
@@ -113,14 +113,14 @@ export function Parents() {
                 const Icon = item.icon
                 return (
                   <FadeUp key={item.title} delay={0.1 + idx * 0.05} y={15}>
-                    <div className="flex flex-col gap-2 p-5 rounded-2xl border border-white/[0.06] bg-white/[0.015]">
+                    <div className="flex flex-col gap-2 p-5 rounded-2xl border border-border bg-card shadow-sm">
                       <div className="flex items-center gap-2.5">
                         <Icon className="size-4 text-[#8052FF]" />
-                        <h3 className="font-heading text-[15px] font-normal text-white">
+                        <h3 className="font-heading text-[15px] font-semibold text-foreground">
                           {item.title}
                         </h3>
                       </div>
-                      <p className="text-[13.5px] leading-relaxed text-[#9A9A9A] font-light">
+                      <p className="text-[13.5px] leading-relaxed text-muted-foreground font-normal">
                         {item.body}
                       </p>
                     </div>
@@ -131,17 +131,17 @@ export function Parents() {
 
             {/* Actions */}
             <FadeUp delay={0.4}>
-              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-4 border-t border-white/[0.08]">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-4 border-t border-border">
                 <a
                   href="#book"
-                  className="inline-flex items-center justify-center gap-2 rounded-full bg-[#8052FF] px-7 py-3.5 text-sm font-medium text-white hover:bg-[#6e3df0] shadow-[0_0_25px_rgba(128,82,255,0.4)] transition-all"
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-[#8052FF] px-7 py-3.5 text-sm font-semibold text-white hover:bg-[#6e3df0] shadow-[0_0_25px_rgba(128,82,255,0.4)] transition-all"
                 >
                   <span>Book a Parent Consultation</span>
                   <ArrowRight className="size-4" />
                 </a>
                 <a
                   href="#faq"
-                  className="inline-flex items-center justify-center px-6 py-3.5 text-sm text-[#9A9A9A] hover:text-white transition-colors"
+                  className="inline-flex items-center justify-center px-6 py-3.5 text-sm text-muted-foreground hover:text-foreground transition-colors font-medium"
                 >
                   Read Parent FAQs
                 </a>

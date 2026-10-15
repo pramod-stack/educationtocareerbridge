@@ -159,7 +159,7 @@ export function CollegeCompare() {
   const chosen = colleges.filter((c) => selected.includes(c.id))
 
   return (
-    <section id="compare" className="bg-black py-28 sm:py-36 border-b border-white/[0.08]">
+    <section id="compare" className="bg-background text-foreground py-28 sm:py-36 border-b border-border transition-colors duration-300">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
@@ -174,15 +174,15 @@ export function CollegeCompare() {
             <SplitLineReveal
               lines={[
                 'Compare colleges the way',
-                <span key="parents" className="text-[#9A9A9A]">parents actually think.</span>,
+                <span key="parents" className="text-muted-foreground">parents actually think.</span>,
               ]}
-              className="mt-4 font-heading text-4xl sm:text-5xl lg:text-6xl font-normal tracking-[-0.04em] text-white leading-[1.05]"
+              className="mt-4 font-heading text-4xl sm:text-5xl lg:text-6xl font-normal tracking-[-0.04em] text-foreground leading-[1.05]"
               lineClassName="leading-[1.05]"
               stagger={0.08}
             />
 
             <FadeUp delay={0.25}>
-              <p className="mt-5 text-[17px] text-[#9A9A9A] leading-relaxed font-light">
+              <p className="mt-5 text-[17px] text-muted-foreground leading-relaxed font-light">
                 Fees, placement records, hostel safety, food hygiene, faculty credentials, and realistic ROI — evaluated side by side.
                 Select up to 3 colleges to compare.
               </p>
@@ -192,7 +192,7 @@ export function CollegeCompare() {
           <FadeUp delay={0.3}>
             <a
               href="#book"
-              className="inline-flex items-center justify-center rounded-full border border-white/[0.15] bg-white/[0.03] px-6 py-3 text-sm text-white hover:bg-white/[0.08] hover:border-white/30 transition-all self-start lg:self-auto"
+              className="inline-flex items-center justify-center rounded-full border border-border bg-card px-6 py-3 text-sm text-foreground hover:bg-muted transition-all self-start lg:self-auto font-medium"
             >
               Get a Personalized Shortlist
             </a>
@@ -212,8 +212,8 @@ export function CollegeCompare() {
                 className={cn(
                   'flex items-center gap-2 rounded-full border px-4 py-2 text-[13px] font-normal transition-all duration-300 outline-none focus-visible:ring-1 focus-visible:ring-[#8052FF]',
                   isOn
-                    ? 'border-[#8052FF] bg-[#8052FF]/15 text-white shadow-[0_0_16px_rgba(128,82,255,0.3)]'
-                    : 'border-white/[0.1] bg-white/[0.02] text-[#9A9A9A] hover:border-white/20 hover:text-white'
+                    ? 'border-[#8052FF] bg-[#8052FF]/15 text-[#8052FF] dark:text-white font-medium shadow-[0_0_16px_rgba(128,82,255,0.3)]'
+                    : 'border-border bg-card text-muted-foreground hover:border-foreground/30 hover:text-foreground'
                 )}
               >
                 {isOn ? (
@@ -229,25 +229,25 @@ export function CollegeCompare() {
         </div>
 
         {/* Product Comparison Matrix Table */}
-        <div className="mt-8 overflow-hidden rounded-3xl border border-white/[0.08] bg-black/60 shadow-[0_30px_90px_rgba(0,0,0,0.8)]">
+        <div className="mt-8 overflow-hidden rounded-3xl border border-border bg-card shadow-lg">
           <div className="overflow-x-auto [scrollbar-width:thin]">
             <table className="w-full min-w-[760px] text-left border-collapse">
               <thead>
-                <tr className="border-b border-white/[0.08] bg-white/[0.02]">
-                  <th className="w-[200px] py-5 pl-8 text-[11px] font-mono tracking-[0.16em] text-[#9A9A9A] uppercase">
+                <tr className="border-b border-border bg-muted/40">
+                  <th className="w-[200px] py-5 pl-8 text-[11px] font-mono tracking-[0.16em] text-muted-foreground uppercase">
                     Parameter
                   </th>
                   {chosen.map((c) => (
                     <th key={c.id} className="py-5 px-6 align-top">
                       <div className="flex flex-col gap-1">
-                        <span className="font-heading text-[16px] font-normal text-white">
+                        <span className="font-heading text-[16px] font-semibold text-foreground">
                           {c.name}
                         </span>
                         <div className="flex items-center gap-2 mt-1">
-                          <span className="text-[12px] text-[#9A9A9A] font-light">
+                          <span className="text-[12px] text-muted-foreground font-light">
                             {c.city}
                           </span>
-                          <span className="text-[10px] font-mono text-[#FFB829] border border-[#FFB829]/30 bg-[#FFB829]/10 px-2 py-0.5 rounded-full">
+                          <span className="text-[10px] font-mono text-[#b45309] dark:text-[#FFB829] border border-[#FFB829]/30 bg-[#FFB829]/10 px-2 py-0.5 rounded-full font-medium">
                             {c.tag}
                           </span>
                         </div>
@@ -256,13 +256,13 @@ export function CollegeCompare() {
                   ))}
                 </tr>
               </thead>
-              <tbody className="divide-y divide-white/[0.05]">
+              <tbody className="divide-y divide-border">
                 {rows.map((row) => (
                   <tr
                     key={row.key}
-                    className="transition-colors hover:bg-white/[0.015]"
+                    className="transition-colors hover:bg-muted/30"
                   >
-                    <td className="py-4 pl-8 text-[13.5px] font-normal text-[#9A9A9A]">
+                    <td className="py-4 pl-8 text-[13.5px] font-medium text-muted-foreground">
                       <div className="flex items-center gap-1.5">
                         <span>{row.label}</span>
                         {row.hint && (
@@ -280,7 +280,7 @@ export function CollegeCompare() {
                           key={c.id}
                           className={cn(
                             'py-4 px-6 text-[14px]',
-                            isHighlight ? 'text-[#FFB829] font-mono font-medium' : 'text-[#BDBDBD] font-light'
+                            isHighlight ? 'text-[#b45309] dark:text-[#FFB829] font-mono font-semibold' : 'text-foreground/90 font-normal'
                           )}
                         >
                           {c[row.key]}
@@ -294,7 +294,7 @@ export function CollegeCompare() {
           </div>
 
           {/* Sample Data Disclaimer per rule 27 */}
-          <div className="border-t border-white/[0.08] bg-white/[0.01] px-8 py-4 text-[12.5px] text-[#9A9A9A] font-light flex items-center gap-2">
+          <div className="border-t border-border bg-muted/20 px-8 py-4 text-[12.5px] text-muted-foreground font-light flex items-center gap-2">
             <span className="size-1.5 rounded-full bg-[#FFB829]" />
             <span>
               Sample data shown for illustration. Your assigned counsellor shares campus-verified reports, including

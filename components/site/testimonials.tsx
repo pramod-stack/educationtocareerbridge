@@ -50,7 +50,7 @@ const testimonials = [
 
 export function Testimonials() {
   return (
-    <section className="bg-black py-28 sm:py-36 border-b border-white/[0.08]">
+    <section className="bg-background text-foreground py-28 sm:py-36 border-b border-border transition-colors duration-300">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="max-w-3xl">
@@ -60,19 +60,19 @@ export function Testimonials() {
             </span>
           </FadeUp>
 
-          <h2 className="sr-only">4.9 out of 5. From the people who matter most.</h2>
+            <h2 className="sr-only">4.9 out of 5. From the people who matter most.</h2>
           <SplitLineReveal
             lines={[
               '4.9 out of 5.',
-              <span key="people" className="text-[#9A9A9A]">From the people who matter most.</span>,
+              <span key="people" className="text-muted-foreground">From the people who matter most.</span>,
             ]}
-            className="mt-4 font-heading text-4xl sm:text-5xl lg:text-6xl font-normal tracking-[-0.04em] text-white leading-[1.05]"
+            className="mt-4 font-heading text-4xl sm:text-5xl lg:text-6xl font-normal tracking-[-0.04em] text-foreground leading-[1.05]"
             lineClassName="leading-[1.05]"
             stagger={0.08}
           />
 
           <FadeUp delay={0.25}>
-            <p className="mt-5 text-[17px] text-[#9A9A9A] leading-relaxed font-light">
+            <p className="mt-5 text-[17px] text-muted-foreground leading-relaxed font-light">
               Verified feedback from students, parents, and hiring leaders across India.
             </p>
           </FadeUp>
@@ -82,9 +82,9 @@ export function Testimonials() {
         <div className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-16 gap-x-12">
           {testimonials.map((item, idx) => (
             <FadeUp key={idx} delay={0.1 + (idx % 3) * 0.08} y={20}>
-              <div className="flex flex-col justify-between pt-6 border-t border-white/[0.12] group hover:border-[#8052FF]/50 transition-colors duration-300 h-full">
+              <div className="flex flex-col justify-between pt-6 border-t border-border group hover:border-[#8052FF] transition-colors duration-300 h-full">
                 {/* Huge Quote Typography */}
-                <blockquote className="font-heading text-xl sm:text-2xl font-light text-white/90 leading-snug group-hover:text-white transition-colors">
+                <blockquote className="font-heading text-xl sm:text-2xl font-normal text-foreground/90 leading-snug group-hover:text-foreground transition-colors">
                   &ldquo;{item.quote}&rdquo;
                 </blockquote>
 
@@ -95,13 +95,13 @@ export function Testimonials() {
                     alt={`Portrait of ${item.name}`}
                     width={36}
                     height={36}
-                    className="size-9 rounded-full object-cover border border-white/[0.2]"
+                    className="size-9 rounded-full object-cover border border-border"
                   />
                   <div className="flex flex-col">
-                    <span className="font-heading text-sm font-normal text-white">
+                    <span className="font-heading text-sm font-medium text-foreground">
                       {item.name}
                     </span>
-                    <span className="text-xs font-mono text-[#9A9A9A]">
+                    <span className="text-xs font-mono text-muted-foreground">
                       {item.role}
                     </span>
                   </div>

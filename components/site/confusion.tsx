@@ -65,7 +65,7 @@ const problems = [
 
 export function Confusion() {
   return (
-    <section className="bg-black py-28 sm:py-36 border-b border-white/[0.08]">
+    <section className="bg-background text-foreground py-28 sm:py-36 border-b border-border transition-colors duration-300">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid gap-16 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20 items-start">
           {/* Left Column: Sticky Editorial Statement */}
@@ -83,22 +83,22 @@ export function Confusion() {
                 'shouldn’t feel like',
                 'guesswork.',
               ]}
-              className="mt-4 font-heading text-4xl sm:text-5xl lg:text-[3.5rem] leading-[1.05] font-normal tracking-[-0.04em] text-white"
+              className="mt-4 font-heading text-4xl sm:text-5xl lg:text-[3.5rem] leading-[1.05] font-normal tracking-[-0.04em] text-foreground"
               lineClassName="leading-[1.05]"
               stagger={0.08}
             />
 
             <FadeUp delay={0.2}>
-              <p className="mt-6 text-[17px] leading-relaxed text-[#9A9A9A] font-light">
+              <p className="mt-6 text-[17px] leading-relaxed text-muted-foreground font-light">
                 Choosing a career at 17 is the biggest financial and emotional decision most Indian families ever make.
                 Yet it is almost always made in a hurry, driven by incomplete information and admission sales agents.
               </p>
             </FadeUp>
 
             <FadeUp delay={0.3}>
-              <div className="mt-8 p-6 rounded-2xl border border-white/[0.08] bg-white/[0.02]">
-                <p className="text-[15px] leading-relaxed text-white font-normal">
-                  <span className="text-[#8052FF] font-medium">Education Bridge replaces confusion with clarity.</span>{' '}
+              <div className="mt-8 p-6 rounded-2xl border border-border bg-card/80 shadow-sm">
+                <p className="text-[15px] leading-relaxed text-foreground font-normal">
+                  <span className="text-[#8052FF] font-semibold">Education Bridge replaces confusion with clarity.</span>{' '}
                   We study your aptitude, skills, family finances, personality, academics and long-term aspirations
                   before we say a single college name.
                 </p>
@@ -109,27 +109,27 @@ export function Confusion() {
           {/* Right Column: Spacious Minimal Editorial Entries */}
           <div>
             <DrawLine />
-            <div className="divide-y divide-white/[0.08]">
+            <div className="divide-y divide-border">
               {problems.map((problem, idx) => {
                 return (
                   <FadeUp key={problem.num} delay={idx * 0.05} y={18}>
-                    <div className="group py-8 sm:py-9 transition-colors duration-300 hover:bg-white/[0.015] px-2 sm:px-4">
+                    <div className="group py-8 sm:py-9 transition-colors duration-300 hover:bg-muted/30 px-2 sm:px-4">
                       <div className="flex items-start gap-5">
-                        <span className="font-heading text-sm text-[#8052FF] font-mono mt-1">
+                        <span className="font-heading text-sm text-[#8052FF] font-mono mt-1 font-semibold">
                           {problem.num}
                         </span>
 
                         <div className="flex-1">
                           <div className="flex flex-wrap items-center justify-between gap-2">
-                            <h3 className="font-heading text-xl sm:text-2xl font-normal text-white group-hover:text-[#8052FF] transition-colors">
+                            <h3 className="font-heading text-xl sm:text-2xl font-semibold text-foreground group-hover:text-[#8052FF] transition-colors">
                               {problem.title}
                             </h3>
-                            <span className="text-[11px] font-mono tracking-wider text-[#9A9A9A] uppercase px-2.5 py-0.5 rounded-full border border-white/[0.08] bg-white/[0.02]">
+                            <span className="text-[11px] font-mono tracking-wider text-muted-foreground uppercase px-2.5 py-0.5 rounded-full border border-border bg-muted/50">
                               {problem.highlight}
                             </span>
                           </div>
 
-                          <p className="mt-3 text-[15px] sm:text-[15.5px] leading-relaxed text-[#9A9A9A] font-light">
+                          <p className="mt-3 text-[15px] sm:text-[15.5px] leading-relaxed text-muted-foreground font-normal">
                             {problem.body}
                           </p>
                         </div>

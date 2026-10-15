@@ -159,7 +159,7 @@ export function DrawLine({
         ease: REFERO_EASE,
       }}
       style={{ transformOrigin: 'left', willChange: 'transform' }}
-      className={cn('h-px w-full bg-white/[0.08]', className)}
+      className={cn('h-px w-full bg-border', className)}
     />
   )
 }

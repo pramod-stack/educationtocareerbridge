@@ -113,12 +113,12 @@ export function Hero() {
 
             {/* Supporting Services Strip */}
             <FadeUp delay={0.55}>
-              <div className="pt-2 flex flex-wrap items-center gap-x-3 gap-y-2 text-xs sm:text-[13px] text-muted-foreground font-mono">
+              <div className="pt-2 flex flex-wrap items-center gap-x-3 gap-y-2 text-xs sm:text-[13px] text-foreground/75 font-mono">
                 {supportingServices.map((service, idx) => (
                   <React.Fragment key={service}>
                     <span className="hover:text-foreground transition-colors">{service}</span>
                     {idx < supportingServices.length - 1 && (
-                      <span className="text-[#00C2FF]/40" aria-hidden="true">
+                      <span className="text-[#00C2FF]/60" aria-hidden="true">
                         ·
                       </span>
                     )}
@@ -129,10 +129,10 @@ export function Hero() {
 
             {/* Trust Points */}
             <FadeUp delay={0.65}>
-              <div className="pt-2 flex flex-wrap items-center gap-x-6 gap-y-2 text-xs sm:text-sm text-foreground/90 font-light">
+              <div className="pt-2 flex flex-wrap items-center gap-x-6 gap-y-2 text-xs sm:text-sm text-foreground font-medium">
                 {trustPoints.map((point) => (
-                  <span key={point} className="flex items-center gap-1.5">
-                    <CheckCircle2 className="size-4 text-[#00C2FF]" />
+                  <span key={point} className="flex items-center gap-2">
+                    <CheckCircle2 className="size-4 text-[#00C2FF] shrink-0" />
                     <span>{point}</span>
                   </span>
                 ))}

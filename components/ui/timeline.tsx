@@ -305,8 +305,7 @@ export default function Timeline({
     <section
       ref={sectionRef}
       id="journey"
-      className="relative w-full overflow-hidden bg-black border-t border-b border-white/[0.08]"
-      style={sectionStyle}
+      className="relative w-full overflow-hidden bg-background text-foreground border-t border-b border-border transition-colors duration-300"
     >
       {/* Viewport Frame with vertical centering */}
       <div className="h-screen w-full flex flex-col justify-between pt-24 pb-12 sm:pt-28 sm:pb-16 px-4 sm:px-8 relative overflow-hidden">
@@ -325,16 +324,16 @@ export default function Timeline({
                 One Partner · Every Stage
               </span>
             </div>
-            <h2 className="mt-1 font-heading text-2xl sm:text-4xl text-white font-normal tracking-tight">
+            <h2 className="mt-1 font-heading text-2xl sm:text-4xl text-foreground font-semibold tracking-tight">
               {title}
             </h2>
           </div>
 
           <div className="hidden md:flex flex-col items-end">
-            <span className="font-mono text-xs text-[#56D8E7] tracking-wider uppercase">
+            <span className="font-mono text-xs text-[#0f9f9a] dark:text-[#56D8E7] tracking-wider uppercase font-medium">
               {periodLabel}
             </span>
-            <span className="text-xs text-[#94A3B8] font-light mt-0.5 flex items-center gap-1.5">
+            <span className="text-xs text-muted-foreground font-light mt-0.5 flex items-center gap-1.5">
               <span>Scroll down to navigate trajectory</span>
               <ArrowRight className="size-3 text-[#00C2FF]" />
             </span>
@@ -349,7 +348,7 @@ export default function Timeline({
             className="flex items-center gap-6 sm:gap-10 shrink-0 will-change-transform pr-16"
           >
             {/* 00. Anchor Lead Card */}
-            <div className="w-[300px] sm:w-[360px] h-[440px] shrink-0 rounded-2xl border border-white/10 bg-[#070e17] shadow-[0_20px_50px_rgba(0,0,0,0.8)] overflow-hidden flex flex-col justify-between relative group">
+            <div className="w-[300px] sm:w-[360px] h-[440px] shrink-0 rounded-2xl border border-border bg-card shadow-xl overflow-hidden flex flex-col justify-between relative group">
               <div className="relative h-1/2 w-full overflow-hidden">
                 <img
                   src={imageUrl}
@@ -357,7 +356,7 @@ export default function Timeline({
                   draggable={false}
                   className="h-full w-full object-cover filter contrast-[1.05] brightness-90 transition-transform duration-700 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#070e17] via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-card via-card/40 to-transparent" />
                 <span className="absolute top-3 left-3 px-2.5 py-1 rounded-full text-[10px] font-mono font-medium tracking-wider bg-black/70 backdrop-blur-md text-[#56D8E7] border border-white/10">
                   Continuous Stewardship
                 </span>
@@ -365,17 +364,17 @@ export default function Timeline({
 
               <div className="p-5 flex-1 flex flex-col justify-between">
                 <div>
-                  <h3 className="font-heading text-xl text-white font-normal leading-snug">
+                  <h3 className="font-heading text-xl text-foreground font-semibold leading-snug">
                     The journey doesn’t end at admission. Neither do we.
                   </h3>
-                  <p className="mt-2 text-[13px] text-[#94A3B8] font-light leading-relaxed">
+                  <p className="mt-2 text-[13px] text-muted-foreground font-light leading-relaxed">
                     Most consultancies disappear once fees are collected. We architect your roadmap through college academics, internships, and final campus placement.
                   </p>
                 </div>
 
-                <div className="pt-3 border-t border-white/[0.06] flex items-center justify-between text-xs font-mono text-[#00C2FF]">
+                <div className="pt-3 border-t border-border flex items-center justify-between text-xs font-mono text-[#00C2FF]">
                   <span>7 Milestone Stages</span>
-                  <span className="flex items-center gap-1 text-[#94A3B8]">
+                  <span className="flex items-center gap-1 text-muted-foreground">
                     Explore track <ArrowRight className="size-3 text-[#00C2FF]" />
                   </span>
                 </div>
@@ -387,7 +386,7 @@ export default function Timeline({
               {/* Continuous Centerline Track across all milestones */}
               <div
                 aria-hidden="true"
-                className="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-[2px] bg-white/[0.12] z-0"
+                className="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-[2px] bg-border z-0"
               >
                 {/* Active Progress Gradient Overlay */}
                 <div
@@ -411,24 +410,24 @@ export default function Timeline({
                       {/* TOP HALF: Card if top, empty if bottom */}
                       <div className="h-[190px] w-full flex flex-col justify-end">
                         {isTop && (
-                          <div className="w-full rounded-2xl border border-white/10 bg-[#070e17]/90 backdrop-blur-md p-4 sm:p-5 shadow-[0_12px_36px_rgba(0,0,0,0.6)] hover:border-[#00C2FF]/50 transition-all duration-300 group">
+                          <div className="w-full rounded-2xl border border-border bg-card/95 backdrop-blur-md p-4 sm:p-5 shadow-lg hover:border-[#00C2FF]/50 transition-all duration-300 group">
                             <div className="flex items-center justify-between">
                               <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-mono font-medium tracking-wider text-[#00C2FF] bg-[#00C2FF]/10 border border-[#00C2FF]/20">
                                 <span className="size-1.5 rounded-full bg-[#00C2FF]" />
                                 {item.stageBadge || `Stage 0${index}`}
                               </span>
-                              <Icon className="size-4 text-[#56D8E7] opacity-80 group-hover:scale-110 transition-transform" />
+                              <Icon className="size-4 text-[#0f9f9a] dark:text-[#56D8E7] opacity-80 group-hover:scale-110 transition-transform" />
                             </div>
 
-                            <h4 className="mt-2.5 font-heading text-[16px] sm:text-[17px] font-normal text-white tracking-tight line-clamp-1">
+                            <h4 className="mt-2.5 font-heading text-[16px] sm:text-[17px] font-semibold text-foreground tracking-tight line-clamp-1">
                               {item.phase || item.year}
                             </h4>
-                            <p className="mt-1 text-[12.5px] leading-relaxed text-[#94A3B8] font-light line-clamp-2">
+                            <p className="mt-1 text-[12.5px] leading-relaxed text-muted-foreground font-normal line-clamp-2">
                               {item.content}
                             </p>
 
                             {item.deliverable && (
-                              <div className="mt-2.5 pt-2 border-t border-white/[0.06] text-[10.5px] font-mono text-[#56D8E7] truncate">
+                              <div className="mt-2.5 pt-2 border-t border-border text-[10.5px] font-mono text-[#0f9f9a] dark:text-[#56D8E7] truncate font-medium">
                                 {item.deliverable}
                               </div>
                             )}
@@ -447,7 +446,7 @@ export default function Timeline({
 
                         {/* Central Glowing Milestone Dot */}
                         <div
-                          className="relative z-20 size-6 rounded-full border-2 border-[#00C2FF] bg-[#070e17] flex items-center justify-center shadow-[0_0_16px_rgba(0,194,255,0.8)] cursor-pointer group"
+                          className="relative z-20 size-6 rounded-full border-2 border-[#00C2FF] bg-card flex items-center justify-center shadow-[0_0_16px_rgba(0,194,255,0.8)] cursor-pointer group"
                           title={item.phase}
                         >
                           <div className="size-2 rounded-full bg-[#00C2FF] transition-transform duration-300 group-hover:scale-125" />
@@ -457,24 +456,24 @@ export default function Timeline({
                       {/* BOTTOM HALF: Card if bottom, empty if top */}
                       <div className="h-[190px] w-full flex flex-col justify-start">
                         {!isTop && (
-                          <div className="w-full rounded-2xl border border-white/10 bg-[#070e17]/90 backdrop-blur-md p-4 sm:p-5 shadow-[0_12px_36px_rgba(0,0,0,0.6)] hover:border-[#00C2FF]/50 transition-all duration-300 group">
+                          <div className="w-full rounded-2xl border border-border bg-card/95 backdrop-blur-md p-4 sm:p-5 shadow-lg hover:border-[#00C2FF]/50 transition-all duration-300 group">
                             <div className="flex items-center justify-between">
                               <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-mono font-medium tracking-wider text-[#00C2FF] bg-[#00C2FF]/10 border border-[#00C2FF]/20">
                                 <span className="size-1.5 rounded-full bg-[#00C2FF]" />
                                 {item.stageBadge || `Stage 0${index}`}
                               </span>
-                              <Icon className="size-4 text-[#56D8E7] opacity-80 group-hover:scale-110 transition-transform" />
+                              <Icon className="size-4 text-[#0f9f9a] dark:text-[#56D8E7] opacity-80 group-hover:scale-110 transition-transform" />
                             </div>
 
-                            <h4 className="mt-2.5 font-heading text-[16px] sm:text-[17px] font-normal text-white tracking-tight line-clamp-1">
+                            <h4 className="mt-2.5 font-heading text-[16px] sm:text-[17px] font-semibold text-foreground tracking-tight line-clamp-1">
                               {item.phase || item.year}
                             </h4>
-                            <p className="mt-1 text-[12.5px] leading-relaxed text-[#94A3B8] font-light line-clamp-2">
+                            <p className="mt-1 text-[12.5px] leading-relaxed text-muted-foreground font-normal line-clamp-2">
                               {item.content}
                             </p>
 
                             {item.deliverable && (
-                              <div className="mt-2.5 pt-2 border-t border-white/[0.06] text-[10.5px] font-mono text-[#56D8E7] truncate">
+                              <div className="mt-2.5 pt-2 border-t border-border text-[10.5px] font-mono text-[#0f9f9a] dark:text-[#56D8E7] truncate font-medium">
                                 {item.deliverable}
                               </div>
                             )}
@@ -486,32 +485,32 @@ export default function Timeline({
                 })}
 
                 {/* 08. Concluding Milestone & Direct CTA Card */}
-                <div className="w-[300px] sm:w-[340px] h-[440px] shrink-0 rounded-2xl border border-[#00C2FF]/40 bg-gradient-to-b from-[#070e17] via-[#0A1624] to-[#04080e] p-6 shadow-[0_20px_50px_rgba(0,194,255,0.15)] flex flex-col justify-between">
+                <div className="w-[300px] sm:w-[340px] h-[440px] shrink-0 rounded-2xl border border-[#00C2FF]/40 bg-card p-6 shadow-xl flex flex-col justify-between">
                   <div>
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono font-medium text-[#56D8E7] bg-[#00C2FF]/10 border border-[#00C2FF]/30">
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono font-medium text-[#0f9f9a] dark:text-[#56D8E7] bg-[#00C2FF]/10 border border-[#00C2FF]/30">
                       Lifetime Partnership
                     </span>
-                    <h3 className="mt-4 font-heading text-2xl text-white font-normal leading-snug">
+                    <h3 className="mt-4 font-heading text-2xl text-foreground font-semibold leading-snug">
                       Your career trajectory starts with one honest conversation.
                     </h3>
-                    <p className="mt-2.5 text-[13px] text-[#94A3B8] font-light leading-relaxed">
+                    <p className="mt-2.5 text-[13px] text-muted-foreground font-light leading-relaxed">
                       Zero commissions, verified facts, and continuous guidance until your first day at work.
                     </p>
                   </div>
 
-                  <div className="space-y-3 pt-4 border-t border-white/[0.08]">
+                  <div className="space-y-3 pt-4 border-t border-border">
                     <a
                       href="https://wa.me/917795354043?text=Hi%20Education%20to%20Career%20Bridge%2C%20I%20would%20like%20guidance%20on%20my%20career%20and%20college%20options."
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-sm font-medium text-black bg-[#00C2FF] hover:bg-[#56D8E7] transition-all shadow-[0_0_20px_rgba(0,194,255,0.4)]"
+                      className="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-sm font-semibold text-white bg-[#00C2FF] hover:bg-[#00b0e8] transition-all shadow-[0_0_20px_rgba(0,194,255,0.4)]"
                     >
                       <PhoneCall className="size-4" />
                       <span>WhatsApp +91 77953 54043</span>
                     </a>
                     <a
                       href="#booking"
-                      className="w-full inline-flex items-center justify-center py-2.5 px-4 rounded-xl text-xs font-mono text-[#94A3B8] hover:text-white border border-white/10 hover:border-white/20 transition-all"
+                      className="w-full inline-flex items-center justify-center py-2.5 px-4 rounded-xl text-xs font-mono text-muted-foreground hover:text-foreground border border-border hover:border-foreground/20 transition-all"
                     >
                       Book 45-Min Discovery Call
                     </a>
@@ -523,12 +522,12 @@ export default function Timeline({
         </div>
 
         {/* Bottom Status & Scroll Indicator */}
-        <div className="relative z-10 w-full max-w-7xl mx-auto flex items-center justify-between text-xs text-[#94A3B8] font-mono pt-2 border-t border-white/[0.06]">
+        <div className="relative z-10 w-full max-w-7xl mx-auto flex items-center justify-between text-xs text-muted-foreground font-mono pt-2 border-t border-border">
           <span className="flex items-center gap-2">
             <span className="size-1.5 rounded-full bg-[#00C2FF]" />
             <span>Continuous Guidance Across 7 Stages</span>
           </span>
-          <span className="text-[#56D8E7]">Class 10 · Pre-Admission · Degree · Corporate Career</span>
+          <span className="text-[#0f9f9a] dark:text-[#56D8E7] font-medium">Class 10 · Pre-Admission · Degree · Corporate Career</span>
         </div>
       </div>
     </section>

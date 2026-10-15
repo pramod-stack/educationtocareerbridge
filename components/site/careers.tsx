@@ -185,7 +185,7 @@ export function Careers() {
   const Icon = current.icon
 
   return (
-    <section id="careers" className="bg-black py-28 sm:py-36 border-b border-white/[0.08]">
+    <section id="careers" className="bg-background text-foreground py-28 sm:py-36 border-b border-border transition-colors duration-300">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="max-w-3xl">
@@ -199,15 +199,15 @@ export function Careers() {
           <SplitLineReveal
             lines={[
               '100+ career paths.',
-              <span key="demystified" className="text-[#9A9A9A]">Demystified in plain language.</span>,
+              <span key="demystified" className="text-muted-foreground">Demystified in plain language.</span>,
             ]}
-            className="mt-4 font-heading text-4xl sm:text-5xl lg:text-6xl font-normal tracking-[-0.04em] text-white leading-[1.05]"
+            className="mt-4 font-heading text-4xl sm:text-5xl lg:text-6xl font-normal tracking-[-0.04em] text-foreground leading-[1.05]"
             lineClassName="leading-[1.05]"
             stagger={0.08}
           />
 
           <FadeUp delay={0.25}>
-            <p className="mt-5 text-[17px] text-[#9A9A9A] leading-relaxed font-light">
+            <p className="mt-5 text-[17px] text-muted-foreground leading-relaxed font-light">
               Select any industry to inspect verified entry salaries, realistic day-to-day job roles,
               future demand curves, and the exact academic roadmap.
             </p>
@@ -219,7 +219,7 @@ export function Careers() {
           {/* Left Column: Interactive Typography List */}
           <div>
             <DrawLine />
-            <div className="flex flex-col divide-y divide-white/[0.06]">
+            <div className="flex flex-col divide-y divide-border">
               {careers.map((career) => {
                 const isSelected = career.id === selectedId
                 return (
@@ -234,7 +234,7 @@ export function Careers() {
                         'font-heading text-xl sm:text-2xl lg:text-[1.75rem] font-normal tracking-tight transition-all duration-300',
                         isSelected
                           ? 'text-[#8052FF] translate-x-2'
-                          : 'text-white/70 group-hover:text-white group-hover:translate-x-1'
+                          : 'text-foreground/75 group-hover:text-foreground group-hover:translate-x-1'
                       )}
                     >
                       {career.name}
@@ -247,8 +247,8 @@ export function Careers() {
                           career.demand === 'Very high'
                             ? 'border-[#15846E]/40 text-[#15846E] bg-[#15846E]/10'
                             : career.demand === 'High'
-                              ? 'border-[#8052FF]/30 text-[#a584ff] bg-[#8052FF]/5'
-                              : 'border-white/10 text-[#9A9A9A]'
+                              ? 'border-[#8052FF]/30 text-[#8052FF] dark:text-[#a584ff] bg-[#8052FF]/5'
+                              : 'border-border text-muted-foreground'
                         )}
                       >
                         {career.demand}
@@ -258,7 +258,7 @@ export function Careers() {
                           'size-4 transition-all duration-300',
                           isSelected
                             ? 'text-[#8052FF] translate-x-1 opacity-100'
-                            : 'text-[#9A9A9A] opacity-30 group-hover:opacity-100 group-hover:translate-x-1'
+                            : 'text-muted-foreground opacity-40 group-hover:opacity-100 group-hover:translate-x-1'
                         )}
                       />
                     </div>
@@ -270,7 +270,7 @@ export function Careers() {
           </div>
 
           {/* Right Column: Sticky Editorial Career Dossier Panel with AnimatePresence */}
-          <div className="lg:sticky lg:top-32 rounded-3xl border border-white/[0.1] bg-white/[0.02] p-8 sm:p-10 shadow-[0_20px_60px_rgba(0,0,0,0.8)] overflow-hidden">
+          <div className="lg:sticky lg:top-32 rounded-3xl border border-border bg-card p-8 sm:p-10 shadow-lg overflow-hidden">
             <AnimatePresence mode="wait">
               <motion.div
                 key={selectedId}
@@ -285,20 +285,20 @@ export function Careers() {
                       <Icon className="size-6" />
                     </div>
                     <div>
-                      <h3 className="font-heading text-2xl font-normal text-white">
+                      <h3 className="font-heading text-2xl font-semibold text-foreground">
                         {current.name}
                       </h3>
-                      <span className="text-xs font-mono text-[#9A9A9A]">
+                      <span className="text-xs font-mono text-muted-foreground">
                         CAREER PROFILE BRIEF
                       </span>
                     </div>
                   </div>
 
                   <div className="flex flex-col items-end">
-                    <span className="text-[11px] font-mono text-[#9A9A9A] uppercase">
+                    <span className="text-[11px] font-mono text-muted-foreground uppercase font-medium">
                       Growth Outlook
                     </span>
-                    <span className="text-xs font-medium text-[#15846E] flex items-center gap-1 mt-0.5">
+                    <span className="text-xs font-semibold text-[#15846E] flex items-center gap-1 mt-0.5">
                       <TrendingUp className="size-3" />
                       {current.demand} Demand
                     </span>
@@ -306,51 +306,51 @@ export function Careers() {
                 </div>
 
                 {/* Metrics Breakdown */}
-                <div className="mt-8 space-y-6 divide-y divide-white/[0.08]">
+                <div className="mt-8 space-y-6 divide-y divide-border">
                   <div className="pt-2">
-                    <span className="text-xs font-mono tracking-wider text-[#9A9A9A] uppercase block">
+                    <span className="text-xs font-mono tracking-wider text-muted-foreground uppercase block font-medium">
                       Expected Entry Salary Band
                     </span>
-                    <span className="font-heading text-3xl font-normal text-[#FFB829] mt-1 block">
+                    <span className="font-heading text-3xl font-semibold text-[#d97706] dark:text-[#FFB829] mt-1 block">
                       {current.entry}
                     </span>
-                    <span className="text-xs text-[#9A9A9A] font-light">
+                    <span className="text-xs text-muted-foreground font-light">
                       Average initial starting CTC based on campus placement audits
                     </span>
                   </div>
 
                   <div className="pt-6">
-                    <span className="text-xs font-mono tracking-wider text-[#9A9A9A] uppercase block">
+                    <span className="text-xs font-mono tracking-wider text-muted-foreground uppercase block font-medium">
                       Primary Roles In Demand
                     </span>
-                    <p className="mt-2 text-[15px] leading-relaxed text-[#BDBDBD] font-light">
+                    <p className="mt-2 text-[15px] leading-relaxed text-foreground/90 font-normal">
                       {current.roles}
                     </p>
                   </div>
 
                   <div className="pt-6">
-                    <span className="text-xs font-mono tracking-wider text-[#9A9A9A] uppercase block">
+                    <span className="text-xs font-mono tracking-wider text-muted-foreground uppercase block font-medium">
                       Recommended Academic Route
                     </span>
-                    <p className="mt-2 text-[15px] leading-relaxed text-[#BDBDBD] font-light">
+                    <p className="mt-2 text-[15px] leading-relaxed text-foreground/90 font-normal">
                       {current.routes}
                     </p>
                   </div>
 
                   <div className="pt-6">
-                    <span className="text-xs font-mono tracking-wider text-[#9A9A9A] uppercase block">
+                    <span className="text-xs font-mono tracking-wider text-muted-foreground uppercase block font-medium">
                       Key Capabilities Evaluated By Employers
                     </span>
-                    <p className="mt-2 text-[15px] leading-relaxed text-[#BDBDBD] font-light">
+                    <p className="mt-2 text-[15px] leading-relaxed text-foreground/90 font-normal">
                       {current.skills}
                     </p>
                   </div>
                 </div>
 
-                <div className="mt-8 pt-6 border-t border-white/[0.08]">
+                <div className="mt-8 pt-6 border-t border-border">
                   <a
                     href="#book"
-                    className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-[#8052FF] py-3 text-sm font-medium text-white hover:bg-[#6e3df0] shadow-[0_0_20px_rgba(128,82,255,0.3)] transition-all"
+                    className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-[#8052FF] py-3 text-sm font-semibold text-white hover:bg-[#6e3df0] shadow-[0_0_20px_rgba(128,82,255,0.3)] transition-all"
                   >
                     <span>Find My Fit in {current.name}</span>
                     <ArrowRight className="size-4" />
@@ -363,8 +363,8 @@ export function Careers() {
 
         {/* Footnote note */}
         <div className="mt-16 text-center">
-          <p className="inline-flex items-center gap-2 text-sm text-[#9A9A9A] font-light">
-            <Sparkles className="size-4 text-[#FFB829]" />
+          <p className="inline-flex items-center gap-2 text-sm text-muted-foreground font-normal">
+            <Sparkles className="size-4 text-[#d97706] dark:text-[#FFB829]" />
             <span>
               Also covered: pharmacy, ITI &amp; diploma lateral routes, government services,
               international study, and professional certifications.

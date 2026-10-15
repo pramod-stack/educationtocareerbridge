@@ -99,10 +99,10 @@ function QuestionPill({ item }: { item: MarqueeItem }) {
       className={cn(
         'inline-flex items-center px-4 py-2.5 rounded-full text-[13.5px] font-normal transition-all duration-300 select-none whitespace-nowrap cursor-default',
         isViolet
-          ? 'border border-[#8052FF]/60 bg-[#8052FF]/10 text-[#a584ff] shadow-[0_0_16px_rgba(128,82,255,0.25)]'
+          ? 'border border-[#8052FF]/60 bg-[#8052FF]/10 text-[#8052FF] dark:text-[#a584ff] shadow-[0_0_16px_rgba(128,82,255,0.25)]'
           : isAmber
-            ? 'border border-[#FFB829]/60 bg-[#FFB829]/10 text-[#FFB829] shadow-[0_0_16px_rgba(255,184,41,0.2)]'
-            : 'border border-white/[0.08] bg-white/[0.02] text-[#9A9A9A] hover:border-white/20 hover:text-white'
+            ? 'border border-[#FFB829]/60 bg-[#FFB829]/10 text-[#d97706] dark:text-[#FFB829] shadow-[0_0_16px_rgba(255,184,41,0.2)]'
+            : 'border border-border bg-card text-foreground/80 hover:border-foreground/30 hover:text-foreground'
       )}
     >
       <span className="mr-2 text-xs opacity-40">?</span>
@@ -114,12 +114,12 @@ function QuestionPill({ item }: { item: MarqueeItem }) {
 export function EducationCareerMarquee() {
   return (
     <>
-      <section id="services" className="relative bg-black py-24 sm:py-32 overflow-hidden border-t border-b border-white/[0.06]">
+      <section id="services" className="relative bg-background text-foreground py-24 sm:py-32 overflow-hidden border-t border-b border-border">
       {/* Editorial Headline */}
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-16">
         <div className="max-w-3xl">
           <FadeUp delay={0}>
-            <span className="text-[12px] font-medium tracking-[0.2em] text-[#FFB829] uppercase">
+            <span className="text-[12px] font-medium tracking-[0.2em] text-[#d97706] dark:text-[#FFB829] uppercase">
               The Questions That Shape A Career
             </span>
           </FadeUp>
@@ -128,15 +128,15 @@ export function EducationCareerMarquee() {
           <SplitLineReveal
             lines={[
               'Every student has questions.',
-              <span key="answers" className="text-[#9A9A9A]">Few get clear answers.</span>,
+              <span key="answers" className="text-muted-foreground">Few get clear answers.</span>,
             ]}
-            className="mt-4 font-heading text-3xl sm:text-5xl lg:text-6xl font-normal tracking-[-0.04em] text-white leading-[1.05]"
+            className="mt-4 font-heading text-3xl sm:text-5xl lg:text-6xl font-normal tracking-[-0.04em] text-foreground leading-[1.05]"
             lineClassName="leading-[1.05]"
             stagger={0.08}
           />
 
           <FadeUp delay={0.25}>
-            <p className="mt-5 text-[17px] sm:text-[18px] text-[#9A9A9A] leading-relaxed font-light max-w-2xl">
+            <p className="mt-5 text-[17px] sm:text-[18px] text-muted-foreground leading-relaxed font-light max-w-2xl">
               Career decisions become easier when the right questions are asked first.
               We turn uncertainty into an architectural roadmap.
             </p>
@@ -146,14 +146,14 @@ export function EducationCareerMarquee() {
 
       {/* 3-Row Continuous Marquee with fade masks */}
       <div className="relative w-full overflow-hidden">
-        {/* Edge fade masks blending into pure black */}
+        {/* Edge fade masks blending into background */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 sm:w-48 bg-gradient-to-r from-black via-black/80 to-transparent"
+          className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 sm:w-48 bg-gradient-to-r from-background via-background/80 to-transparent"
         />
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 sm:w-48 bg-gradient-to-l from-black via-black/80 to-transparent"
+          className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 sm:w-48 bg-gradient-to-l from-background via-background/80 to-transparent"
         />
 
         <div className="flex flex-col gap-3.5">
@@ -196,43 +196,39 @@ export function EducationCareerMarquee() {
     <Timeline
       title="One Partner. Every Stage."
       periodLabel="Class 10 — First Job Placement"
-      backgroundColor="#000000"
-      textColor="#ffffff"
-      mutedTextColor="#94a3b8"
-      activeColor="#00c2ff"
       imageUrl="/images/parents-counselling.png"
       imageAlt="Education Bridge counsellor mentoring student and parents"
     />
 
     {/* Feature Grid following 21st.dev / Refero philosophy (no bulky cards, pristine spacing) */}
-    <section className="bg-black py-20 border-b border-white/[0.08]">
+    <section className="bg-background py-20 border-b border-border">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-white/[0.08] border-y border-white/[0.08]">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-border border-y border-border">
           {features.map((feature) => {
             const Icon = feature.icon
             return (
               <div
                 key={feature.num}
-                className="group flex flex-col justify-between py-10 sm:py-8 sm:px-6 lg:px-8 transition-colors duration-300 hover:bg-white/[0.015]"
+                className="group flex flex-col justify-between py-10 sm:py-8 sm:px-6 lg:px-8 transition-colors duration-300 hover:bg-muted/30"
               >
                 <div>
                   <div className="flex items-center justify-between">
-                    <span className="font-heading text-sm text-[#9A9A9A] tracking-wider">
+                    <span className="font-heading text-sm text-muted-foreground tracking-wider">
                       {feature.num}
                     </span>
                     <Icon className="size-5 text-[#8052FF] transition-transform duration-300 group-hover:scale-110" />
                   </div>
-                  <h3 className="mt-6 font-heading text-[20px] font-normal tracking-tight text-white group-hover:text-[#8052FF] transition-colors">
+                  <h3 className="mt-6 font-heading text-[20px] font-normal tracking-tight text-foreground group-hover:text-[#8052FF] transition-colors">
                     {feature.title}
                   </h3>
-                  <p className="mt-3 text-[14.5px] leading-relaxed text-[#9A9A9A] font-light">
+                  <p className="mt-3 text-[14.5px] leading-relaxed text-muted-foreground font-light">
                     {feature.description}
                   </p>
                 </div>
-                <div className="mt-8 pt-4 border-t border-white/[0.04]">
+                <div className="mt-8 pt-4 border-t border-border">
                   <a
                     href={feature.link}
-                    className="inline-flex items-center gap-1.5 text-xs text-[#BDBDBD] group-hover:text-[#8052FF] transition-colors"
+                    className="inline-flex items-center gap-1.5 text-xs text-muted-foreground group-hover:text-[#8052FF] transition-colors"
                   >
                     <span>{feature.action}</span>
                     <ArrowUpRight className="size-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />

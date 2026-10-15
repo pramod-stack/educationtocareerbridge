@@ -119,7 +119,7 @@ export function CareerSimulator() {
   const current = TRAJECTORIES[activeKey]
 
   return (
-    <section id="simulator" className="relative py-28 sm:py-36 bg-black border-b border-white/[0.08] overflow-hidden">
+    <section id="simulator" className="relative py-28 sm:py-36 bg-background text-foreground border-b border-border overflow-hidden transition-colors duration-300">
       {/* Background Luminous Aura */}
       <div
         aria-hidden="true"
@@ -130,7 +130,7 @@ export function CareerSimulator() {
         {/* Section Header */}
         <div className="max-w-3xl">
           <FadeUp delay={0}>
-            <span className="inline-flex items-center gap-2 rounded-full border border-[#00C2FF]/30 bg-[#00C2FF]/10 px-3.5 py-1 text-[11.5px] font-mono tracking-[0.2em] text-[#00C2FF] uppercase">
+            <span className="inline-flex items-center gap-2 rounded-full border border-[#00C2FF]/30 bg-[#00C2FF]/10 px-3.5 py-1 text-[11.5px] font-mono tracking-[0.2em] text-[#00C2FF] uppercase font-medium">
               <Sliders className="size-3 text-[#00C2FF]" />
               INTERACTIVE TRAJECTORY SIMULATOR
             </span>
@@ -140,15 +140,15 @@ export function CareerSimulator() {
           <SplitLineReveal
             lines={[
               'Simulate your trajectory.',
-              <span key="before-fee" className="text-[#9A9A9A]">Before spending a single rupee on tuition.</span>,
+              <span key="before-fee" className="text-muted-foreground">Before spending a single rupee on tuition.</span>,
             ]}
-            className="mt-4 font-heading text-4xl sm:text-5xl lg:text-6xl font-normal tracking-[-0.04em] text-white leading-[1.05]"
+            className="mt-4 font-heading text-4xl sm:text-5xl lg:text-6xl font-normal tracking-[-0.04em] text-foreground leading-[1.05]"
             lineClassName="leading-[1.05]"
             stagger={0.08}
           />
 
           <FadeUp delay={0.2}>
-            <p className="mt-5 text-[17px] text-[#9A9A9A] leading-relaxed font-light">
+            <p className="mt-5 text-[17px] text-muted-foreground leading-relaxed font-light">
               Select your academic background below to simulate expected degree paths, realistic median starting packages,
               entrance requirements, and 4-year skill milestones.
             </p>
@@ -173,8 +173,8 @@ export function CareerSimulator() {
                   className={cn(
                     'relative p-4 sm:p-5 rounded-2xl border text-left transition-all duration-300 outline-none',
                     isActive
-                      ? 'border-white/30 bg-white/[0.05] shadow-[0_0_24px_rgba(128,82,255,0.18)]'
-                      : 'border-white/[0.08] bg-white/[0.015] hover:bg-white/[0.03] hover:border-white/15'
+                      ? 'border-[#8052FF] bg-card shadow-[0_0_24px_rgba(128,82,255,0.18)]'
+                      : 'border-border bg-card/60 hover:bg-card hover:border-foreground/20'
                   )}
                 >
                   {isActive && (
@@ -184,10 +184,10 @@ export function CareerSimulator() {
                       transition={{ duration: 0.3 }}
                     />
                   )}
-                  <span className="block text-[11px] font-mono tracking-wider text-[#9A9A9A] uppercase mb-1">
+                  <span className="block text-[11px] font-mono tracking-wider text-muted-foreground uppercase mb-1">
                     {tab.stream}
                   </span>
-                  <span className={cn('block font-heading text-base sm:text-lg font-normal transition-colors', isActive ? 'text-white' : 'text-white/80')}>
+                  <span className={cn('block font-heading text-base sm:text-lg transition-colors', isActive ? 'text-foreground font-semibold' : 'text-muted-foreground')}>
                     {tab.label}
                   </span>
                 </button>
@@ -204,46 +204,46 @@ export function CareerSimulator() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -16 }}
             transition={{ duration: 0.35, ease: [0.19, 1, 0.22, 1] }}
-            className="mt-8 rounded-3xl border border-white/[0.08] bg-white/[0.015] p-6 sm:p-10 lg:p-12"
+            className="mt-8 rounded-3xl border border-border bg-card/90 shadow-lg p-6 sm:p-10 lg:p-12"
           >
             {/* Top Overview Grid */}
-            <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] pb-8 border-b border-white/[0.08]">
+            <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] pb-8 border-b border-border">
               <div>
-                <span className="text-xs font-mono tracking-widest text-[#00C2FF] uppercase">
+                <span className="text-xs font-mono tracking-widest text-[#00C2FF] uppercase font-medium">
                   SIMULATION PROFILE: {current.stream}
                 </span>
-                <h3 className="mt-2 font-heading text-2xl sm:text-3xl lg:text-4xl font-normal text-white">
+                <h3 className="mt-2 font-heading text-2xl sm:text-3xl lg:text-4xl font-semibold text-foreground">
                   {current.degree}
                 </h3>
-                <p className="mt-3 text-sm sm:text-base text-[#9A9A9A] font-light leading-relaxed">
+                <p className="mt-3 text-sm sm:text-base text-muted-foreground font-normal leading-relaxed">
                   {current.growthVelocity}
                 </p>
 
                 {/* Key Metrics Strip */}
                 <div className="mt-6 flex flex-wrap gap-4 sm:gap-8">
                   <div>
-                    <span className="block text-[11px] font-mono uppercase text-[#9A9A9A]">
+                    <span className="block text-[11px] font-mono uppercase text-muted-foreground">
                       Median Fresher CTC
                     </span>
-                    <span className="block font-heading text-2xl sm:text-3xl text-[#FFB829] font-normal mt-0.5">
+                    <span className="block font-heading text-2xl sm:text-3xl text-[#d97706] dark:text-[#FFB829] font-semibold mt-0.5">
                       {current.medianCTC}
                     </span>
                   </div>
-                  <div className="h-10 w-px bg-white/[0.08] hidden sm:block" />
+                  <div className="h-10 w-px bg-border hidden sm:block" />
                   <div>
-                    <span className="block text-[11px] font-mono uppercase text-[#9A9A9A]">
+                    <span className="block text-[11px] font-mono uppercase text-muted-foreground">
                       Top 10% Bracket CTC
                     </span>
-                    <span className="block font-heading text-2xl sm:text-3xl text-white font-normal mt-0.5">
+                    <span className="block font-heading text-2xl sm:text-3xl text-foreground font-semibold mt-0.5">
                       {current.topTierCTC}
                     </span>
                   </div>
-                  <div className="h-10 w-px bg-white/[0.08] hidden sm:block" />
+                  <div className="h-10 w-px bg-border hidden sm:block" />
                   <div>
-                    <span className="block text-[11px] font-mono uppercase text-[#9A9A9A]">
+                    <span className="block text-[11px] font-mono uppercase text-muted-foreground">
                       Degree Length
                     </span>
-                    <span className="block font-heading text-2xl sm:text-3xl text-[#00C2FF] font-normal mt-0.5">
+                    <span className="block font-heading text-2xl sm:text-3xl text-[#00C2FF] font-semibold mt-0.5">
                       {current.duration}
                     </span>
                   </div>
@@ -251,16 +251,16 @@ export function CareerSimulator() {
               </div>
 
               {/* Entrance Exams & Colleges */}
-              <div className="flex flex-col justify-between gap-6 rounded-2xl bg-black/60 border border-white/[0.06] p-6">
+              <div className="flex flex-col justify-between gap-6 rounded-2xl bg-muted/40 border border-border p-6">
                 <div>
-                  <span className="text-xs font-mono tracking-wider text-[#9A9A9A] uppercase block mb-3">
+                  <span className="text-xs font-mono tracking-wider text-muted-foreground uppercase block mb-3 font-medium">
                     Target Entrance Exams
                   </span>
                   <div className="flex flex-wrap gap-2">
                     {current.entranceExams.map((exam) => (
                       <span
                         key={exam}
-                        className="rounded-full border border-white/[0.1] bg-white/[0.04] px-3 py-1 text-xs font-mono text-white/90"
+                        className="rounded-full border border-border bg-card px-3 py-1 text-xs font-mono text-foreground font-medium"
                       >
                         {exam}
                       </span>
@@ -269,10 +269,10 @@ export function CareerSimulator() {
                 </div>
 
                 <div>
-                  <span className="text-xs font-mono tracking-wider text-[#9A9A9A] uppercase block mb-2">
+                  <span className="text-xs font-mono tracking-wider text-muted-foreground uppercase block mb-2 font-medium">
                     Top Verified Colleges for this Trajectory
                   </span>
-                  <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-[#BDBDBD]">
+                  <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-foreground/90">
                     {current.recommendedColleges.map((col) => (
                       <li key={col} className="flex items-center gap-1.5 truncate">
                         <CheckCircle2 className="size-3 text-[#15846E] shrink-0" />
@@ -287,12 +287,12 @@ export function CareerSimulator() {
             {/* Bottom 4-Year Milestone Breakdown & Recruiter Cluster */}
             <div className="mt-8 grid gap-8 lg:grid-cols-2 pt-2">
               <div>
-                <h4 className="text-xs font-mono tracking-widest text-[#9A9A9A] uppercase mb-4">
+                <h4 className="text-xs font-mono tracking-widest text-muted-foreground uppercase mb-4 font-medium">
                   4-Year Architectural Milestone Blueprint
                 </h4>
                 <div className="space-y-3">
                   {current.milestones.map((milestone, idx) => (
-                    <div key={idx} className="flex items-start gap-3 text-sm text-[#BDBDBD] font-light">
+                    <div key={idx} className="flex items-start gap-3 text-sm text-foreground/90 font-normal">
                       <div className="size-5 rounded-full bg-[#8052FF]/10 border border-[#8052FF]/30 flex items-center justify-center shrink-0 mt-0.5 text-[10px] font-mono text-[#8052FF]">
                         0{idx + 1}
                       </div>
@@ -304,30 +304,30 @@ export function CareerSimulator() {
 
               <div className="flex flex-col justify-between">
                 <div>
-                  <h4 className="text-xs font-mono tracking-widest text-[#9A9A9A] uppercase mb-4">
+                  <h4 className="text-xs font-mono tracking-widest text-muted-foreground uppercase mb-4 font-medium">
                     Active Hiring Recruiter Clusters
                   </h4>
                   <div className="flex flex-wrap gap-2">
                     {current.recruiterClusters.map((company) => (
                       <span
                         key={company}
-                        className="rounded-lg border border-white/[0.08] bg-white/[0.02] px-3.5 py-1.5 text-xs text-white/80 font-normal"
+                        className="rounded-lg border border-border bg-card px-3.5 py-1.5 text-xs text-foreground/90 font-medium"
                       >
                         {company}
                       </span>
                     ))}
                   </div>
 
-                  <div className="mt-6 rounded-2xl border border-[#FFB829]/20 bg-[#FFB829]/5 p-4 text-xs text-[#FFB829] leading-relaxed">
+                  <div className="mt-6 rounded-2xl border border-[#FFB829]/20 bg-[#FFB829]/10 p-4 text-xs text-[#b45309] dark:text-[#FFB829] leading-relaxed">
                     <span className="font-semibold block mb-1">Architect’s Direct Audit:</span>
                     {current.counselorInsight}
                   </div>
                 </div>
 
-                <div className="mt-6 pt-6 border-t border-white/[0.08] flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+                <div className="mt-6 pt-6 border-t border-border flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
                   <a
                     href="#book"
-                    className="inline-flex items-center justify-center gap-2 rounded-full bg-[#8052FF] px-6 py-3 text-sm font-medium text-white transition-all duration-300 hover:bg-[#6e3df0] shadow-[0_0_24px_rgba(128,82,255,0.4)]"
+                    className="inline-flex items-center justify-center gap-2 rounded-full bg-[#8052FF] px-6 py-3 text-sm font-semibold text-white transition-all duration-300 hover:bg-[#6e3df0] shadow-[0_0_24px_rgba(128,82,255,0.4)]"
                   >
                     <span>Audit My Child’s Fit For This Trajectory</span>
                     <ArrowRight className="size-4" />
@@ -336,7 +336,7 @@ export function CareerSimulator() {
                     href="https://wa.me/917795354043?text=Hi%20Education%20Bridge%2C%20I%20tested%20the%20career%20simulator%20and%20want%20to%20discuss%20pathways."
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-2 rounded-full border border-white/[0.12] bg-white/[0.02] px-5 py-3 text-sm text-[#BDBDBD] hover:text-white hover:border-white/25 transition-colors"
+                    className="inline-flex items-center justify-center gap-2 rounded-full border border-border bg-card px-5 py-3 text-sm text-foreground hover:bg-muted transition-colors font-medium"
                   >
                     <PhoneCall className="size-3.5 text-[#15846E]" />
                     <span>WhatsApp Career Helpline</span>

@@ -51,7 +51,7 @@ export function Faq() {
   }
 
   return (
-    <section id="faq" className="bg-black py-28 sm:py-36 border-b border-white/[0.08]">
+    <section id="faq" className="bg-background text-foreground py-28 sm:py-36 border-b border-border transition-colors duration-300">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid gap-16 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20 items-start">
           {/* Left Column: Sticky Editorial Header */}
@@ -66,25 +66,25 @@ export function Faq() {
             <SplitLineReveal
               lines={[
                 'Straight answers.',
-                <span key="no-sales" className="text-[#9A9A9A]">No sales language.</span>,
+                <span key="no-sales" className="text-muted-foreground">No sales language.</span>,
               ]}
-              className="mt-4 font-heading text-4xl sm:text-5xl font-normal tracking-[-0.04em] text-white leading-[1.05]"
+              className="mt-4 font-heading text-4xl sm:text-5xl font-normal tracking-[-0.04em] text-foreground leading-[1.05]"
               lineClassName="leading-[1.05]"
               stagger={0.08}
             />
 
             <FadeUp delay={0.25}>
-              <p className="mt-5 text-[17px] text-[#9A9A9A] leading-relaxed font-light">
+              <p className="mt-5 text-[17px] text-muted-foreground leading-relaxed font-light">
                 If your question is not covered here, ask it freely during your initial counselling session.
                 There is zero obligation to enroll afterwards.
               </p>
             </FadeUp>
 
             <FadeUp delay={0.35}>
-              <div className="mt-8 pt-8 border-t border-white/[0.08]">
+              <div className="mt-8 pt-8 border-t border-border">
                 <a
                   href="#book"
-                  className="text-sm text-[#8052FF] hover:underline flex items-center gap-2"
+                  className="text-sm text-[#8052FF] hover:underline flex items-center gap-2 font-medium"
                 >
                   <span>Ask our counsellors directly</span>
                   <span>→</span>
@@ -94,7 +94,7 @@ export function Faq() {
           </div>
 
           {/* Right Column: Horizontal Separators with Smooth Height Animation */}
-          <div className="divide-y divide-white/[0.08] border-y border-white/[0.08]">
+          <div className="divide-y divide-border border-y border-border">
             {faqs.map((faq, i) => {
               const isOpen = openIndex === i
               return (
@@ -108,12 +108,12 @@ export function Faq() {
                     <span
                       className={cn(
                         'font-heading text-lg sm:text-xl font-normal transition-colors duration-200',
-                        isOpen ? 'text-[#8052FF]' : 'text-white/90 group-hover:text-white'
+                        isOpen ? 'text-[#8052FF]' : 'text-foreground/90 group-hover:text-foreground'
                       )}
                     >
                       {faq.q}
                     </span>
-                    <span className="size-7 rounded-full border border-white/[0.1] flex items-center justify-center text-[#9A9A9A] shrink-0 mt-0.5 group-hover:border-white/30 group-hover:text-white transition-colors">
+                    <span className="size-7 rounded-full border border-border flex items-center justify-center text-muted-foreground shrink-0 mt-0.5 group-hover:border-foreground/40 group-hover:text-foreground transition-colors">
                       {isOpen ? <Minus className="size-3.5" /> : <Plus className="size-3.5" />}
                     </span>
                   </button>
@@ -125,7 +125,7 @@ export function Faq() {
                     )}
                   >
                     <div className="overflow-hidden">
-                      <p className="text-[15.5px] leading-relaxed text-[#9A9A9A] font-light max-w-2xl">
+                      <p className="text-[15.5px] leading-relaxed text-muted-foreground font-light max-w-2xl">
                         {faq.a}
                       </p>
                     </div>
